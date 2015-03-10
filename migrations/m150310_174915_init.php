@@ -15,9 +15,9 @@ use yii\db\Migration;
 /**
  * @author Dmitry Erofeev <dmeroff@gmail.com
  */
-class m150227_195615_init extends Migration {
+class m150310_174915_init extends Migration {
 
-	public function up() {
+	public function safeUp() {
 		$this->createTable('{{%matacms_carousel}}', [
 			'Id'                   => Schema::TYPE_PK,
 			'Title'             => Schema::TYPE_STRING . '(128)',
@@ -25,7 +25,7 @@ class m150227_195615_init extends Migration {
 			]);
 	}
 
-	public function down() {
+	public function safeDown() {
 		$this->dropTable('{{%matacms_carousel}}');
 	}
 }
