@@ -23,7 +23,11 @@ use mata\base\Module as BaseModule;
 class Module extends BaseModule {
 
 	public function getNavigation() {
-		$carousels = \matacms\carousel\models\Carousel::find()->select(['Title', 'Region'])->asArray()->all();
-		return $carousels;
+		$carousels = \matacms\carousel\models\Carousel::find()->select(['Title', 'Region'])->all();
+		$navigation = [];
+		foreach ($carousels as $carousel)
+			$navigation[$carousel->Title] = "/mata-cms/carousel/carousel/view?Region=$carousel->Region";
+		
+		return $navigation;
 	}
 }
