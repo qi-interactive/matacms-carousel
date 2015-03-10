@@ -20,8 +20,8 @@ class m150310_174915_init extends Migration {
 	public function safeUp() {
 		$this->createTable('{{%matacms_carousel}}', [
 			'Id'                   => Schema::TYPE_PK,
-			'Title'             => Schema::TYPE_STRING . '(128)',
-			'Region'             => Schema::TYPE_STRING . '(128)',
+			'Title'             => Schema::TYPE_STRING . '(128) NOT NULL',
+			'Region'             => Schema::TYPE_STRING . '(128) NOT NULL',
 			]);
 	}
 
