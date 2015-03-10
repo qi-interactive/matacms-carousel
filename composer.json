@@ -1,0 +1,15 @@
+{
+    "name": "matacms/matacms-carousel",
+    "description": "Carousel management for MATA CMS",
+    "keywords": ["yii2", "matacms-carousel", "carousel", "mata"],
+    "type": "yii2-extension",
+    "license": "MIT",
+    "support": {
+    },
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "matacms\\carousel\\": ""
+        }
+    }
+}
