@@ -26,7 +26,7 @@ class Module extends BaseModule {
 		$carousels = \matacms\carousel\models\Carousel::find()->select(['Title', 'Region'])->all();
 		$navigation = [];
 		foreach ($carousels as $carousel)
-			$navigation[$carousel->Title] = "/mata-cms/carousel/carousel/manage?Region=$carousel->Region";
+			$navigation[$carousel->Title] = "/mata-cms/carousel/carousel/manage?region=$carousel->Region";
 		
 		return $navigation;
 	}
