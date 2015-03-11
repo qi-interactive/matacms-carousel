@@ -12,6 +12,7 @@ use yii\db\ActiveQuery;
  * @property integer $Id
  * @property integer $CarouselId
  * @property string $Caption
+ * @property integer $Order
  */
 class CarouselItem extends \matacms\db\ActiveRecord
 {
@@ -30,6 +31,7 @@ class CarouselItem extends \matacms\db\ActiveRecord
     {
         return [
             [['CarouselId'], 'required'],
+            [['CarouselId', 'Order'], 'integer'],
             [['Caption'], 'string', 'max' => 128]
         ];
     }
@@ -43,6 +45,7 @@ class CarouselItem extends \matacms\db\ActiveRecord
             'Id' => 'ID',
             'CarouselId' => 'Carousel ID',
             'Caption' => 'Caption',
+            'Order' => 'Order'
         ];
     }
 
@@ -51,5 +54,15 @@ class CarouselItem extends \matacms\db\ActiveRecord
      */
     public function getCarousel() {
         return $this->hasOne(Carousel::className(), ['Id' => 'CarouselId']);
+    }
+
+    public function beforeSave($insert) {
+        if($insert) {
+            $lastOrder = $this->owner->find()->select(sprintf("MAX(`%s`)", 'Order'))->where([
+                'CarouselId' => $this->owner->CarouselId
+            ])->scalar();
+            $this->owner->Order = $lastOrder+1;
+        }
+        return parent::beforeSave($insert);
     }
 }

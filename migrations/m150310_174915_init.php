@@ -28,6 +28,7 @@ class m150310_174915_init extends Migration {
 			'Id' => Schema::TYPE_PK,
 			'CarouselId' => Schema::TYPE_INTEGER . ' NOT NULL',
 			'Caption' => Schema::TYPE_STRING . '(128)',
+			'Order' => Schema::TYPE_INTEGER,
 			]);
 		$this->addForeignKey('fk_matacms_carouselitem', '{{%matacms_carouselitem}}', 'CarouselId', '{{%matacms_carousel}}', 'Id', 'CASCADE', 'RESTRICT');
 	}

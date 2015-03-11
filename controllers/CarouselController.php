@@ -7,9 +7,19 @@ use matacms\carousel\models\CarouselSearch;
 use matacms\carousel\models\CarouselItem;
 use matacms\controllers\module\Controller;
 use matacms\carousel\clients\CarouselClient;
-use yii\data\ActiveDataProvider;
 
 class CarouselController extends Controller {
+
+    public function actions()
+    {
+        return [
+        'rearrangeCarouselItems' => [
+                'class' => 'matacms\carousel\actions\RearrangeAction',
+                'model' => new CarouselItem(),
+                'onValidationErrorHandler' => function() { echo 'ERROR'; }
+            ],
+        ];
+    }
 
 	public function getModel() {
 		return new Carousel();
@@ -27,13 +37,11 @@ class CarouselController extends Controller {
     {
     	$carouselClient = new CarouselClient;
     	$carousel = $carouselClient->findByRegion($region);
-        $carouselItemsDataProvider = new ActiveDataProvider([
-            'query' => CarouselItem::find(["Region" => $region]),
-            ]);
-
+        $carouselItems = CarouselItem::find(["Region" => $region])->orderBy('Order ASC')->all();
+        
         return $this->render('manage', [
         	'carouselModel' => $carousel,
-            'carouselItemsDataProvider' => $carouselItemsDataProvider
-            ]);
+            'carouselItemsModel' => $carouselItems
+        ]);
     }
 }
