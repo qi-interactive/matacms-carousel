@@ -5,20 +5,20 @@ namespace matacms\carousel\models;
 use Yii;
 
 /**
- * This is the model class for table "matacms_carousel".
+ * This is the model class for table "matacms_carouselitem".
  *
  * @property integer $Id
- * @property string $Title
- * @property string $Region
+ * @property integer $CarouselId
+ * @property string $Caption
  */
-class Carousel extends \matacms\db\ActiveRecord
+class CarouselItem extends \matacms\db\ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return '{{%matacms_carousel}}';
+        return '{{%matacms_carouselitem}}';
     }
 
     /**
@@ -27,8 +27,8 @@ class Carousel extends \matacms\db\ActiveRecord
     public function rules()
     {
         return [
-            [['Title', 'Region'], 'required'],
-            [['Title', 'Region'], 'string', 'max' => 128]
+            [['CarouselId'], 'required'],
+            [['Caption'], 'string', 'max' => 128]
         ];
     }
 
@@ -39,8 +39,8 @@ class Carousel extends \matacms\db\ActiveRecord
     {
         return [
             'Id' => 'ID',
-            'Title' => 'Title',
-            'Region' => 'Region',
+            'CarouselId' => 'Carousel ID',
+            'Caption' => 'Caption',
         ];
     }
 }
