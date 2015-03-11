@@ -3,6 +3,8 @@
 namespace matacms\carousel\models;
 
 use Yii;
+use matacms\carousel\models\CarouselItem;
+use yii\db\ActiveQuery;
 
 /**
  * This is the model class for table "matacms_carousel".
@@ -42,5 +44,12 @@ class Carousel extends \matacms\db\ActiveRecord
             'Title' => 'Title',
             'Region' => 'Region',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getItems() {
+        return $this->hasMany(CarouselItem::className(), ['CarouselId' => 'Id']);
     }
 }
