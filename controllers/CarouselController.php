@@ -68,7 +68,7 @@ class CarouselController extends Controller {
         $model = new Media() ;
         $model->attributes = array(
             "Name" => \Yii::$app->getRequest()->post("name"),
-            "DocumentId" => $carouselItem->Id,
+            "DocumentId" => $carouselItem->getDocumentId(),
             "URI" => $imageURL,
             "Width" => 0,
             "Height" => 0,
