@@ -8,6 +8,8 @@ use kartik\sortable\Sortable;
 
 $this->title = $carouselModel->Title;
 $this->params['breadcrumbs'][] = $this->title;
+
+\matacms\carousel\assets\ModuleAsset::register($this);
 ?>
 <div class="carousel-view">
 
@@ -21,9 +23,10 @@ $this->params['breadcrumbs'][] = $this->title;
     	$items[] = ['content' => '<div class="grid-item" data-item-id="'.$carouselItem->Id.'">'.$carouselItem->Caption.'</div>'];
     // add media placeholder
     $items[] = ['content' => '<div class="grid-item" id="media-upload">'.\mata\widgets\fineuploader\Fineuploader::widget([
-      'model' => new \matacms\carousel\models\CarouselItem,
-      'attribute' => 'Id'
-      ]).'</div>', 'disabled' => true, 'options' => ['style' => 'cursor:text;']];
+        'name' => 'CarouselItemMedia',
+        'uploadSuccessEndpoint' => 'upload-successful?carouselId='.$carouselModel->Id,
+        'view' => '/carousel/_fineuploader'
+      ]).'</div>', 'disabled' => true, 'options' => ['style' => 'cursor:text;', 'class' => 'upload-container']];
     ?>
 
     <?= Sortable::widget([

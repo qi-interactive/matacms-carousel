@@ -17,6 +17,10 @@ class ModuleAsset extends AssetBundle
 {
 	public $sourcePath = '@vendor/matacms/matacms-carousel/web';
 
+	public $css = [
+        'css/mata-carousel.css'
+    ];
+
 	public $js = [
 	];
 
