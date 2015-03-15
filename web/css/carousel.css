@@ -1,0 +1,45 @@
+.qq-upload-list {
+	display: none !important;
+}
+
+#add-media-container {
+	opacity: 1;
+}
+
+#add-media {
+	height: 62px;
+	width: 62px;
+	display: block;
+	vertical-align: middle;
+	line-height: 62px;
+	color: #ffffff;
+	opacity: 1;
+	text-decoration: none;
+	font-size: 40px;
+}
+
+#add-media:hover {
+	color: black;
+}
+
+#media-type-buttons {
+	width: 240px;
+	margin: 0 auto;
+	height: 120px;
+}
+
+#media-type-buttons a {
+	width: 100px;
+	height: 100px;
+	padding: 15px;
+	display: block;
+	margin: 0 10px;
+	text-decoration: none;
+	border: 1px solid #485274;
+	border-radius: 3px;
+	float: left;
+}
+
+#upload-image-container, #add-video-url-container {
+	display: none;
+}

@@ -58,9 +58,7 @@ use yii\web\View;
 				if (uploadSuccessResponse.Id == null) {
 					alert('Media Upload failed. Please get in touch with your support team.');
 				}
-
-				$('<li role=\"option\" aria-grabbed=\"false\" draggable=\"true\"><div class=\"grid-item\" data-item-id=\"'+uploadSuccessResponse.DocumentId+'\"></div></li>').insertBefore('.carousel-view ul.sortable li.upload-container');
-				$('ul.sortable').sortable('reload');
+				" . $widget->events['complete'] . "
 
 			}).on('submit', function() {
 				$('" . $widget->selector . " .current-media').remove();

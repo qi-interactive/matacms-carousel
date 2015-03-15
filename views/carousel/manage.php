@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use kartik\sortable\Sortable;
+use yii\bootstrap\Modal;
 
 /* @var $this yii\web\View */
 /* @var $model mata\contentblock\models\ContentBlock */
@@ -9,24 +10,18 @@ use kartik\sortable\Sortable;
 $this->title = $carouselModel->Title;
 $this->params['breadcrumbs'][] = $this->title;
 
-\matacms\carousel\assets\ModuleAsset::register($this);
+\matacms\carousel\assets\CarouselAsset::register($this);
 ?>
 <div class="carousel-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <?php
-
     // Generate sortable items
     $items = [];
     foreach($carouselItemsModel as $carouselItem)
-    	$items[] = ['content' => '<div class="grid-item" data-item-id="'.$carouselItem->Id.'">'.$carouselItem->Caption.'</div>'];
-    // add media placeholder
-    $items[] = ['content' => '<div class="grid-item" id="media-upload">'.\mata\widgets\fineuploader\Fineuploader::widget([
-        'name' => 'CarouselItemMedia',
-        'uploadSuccessEndpoint' => 'upload-successful?carouselId='.$carouselModel->Id,
-        'view' => '/carousel/_fineuploader'
-      ]).'</div>', 'disabled' => true, 'options' => ['style' => 'cursor:text;', 'class' => 'upload-container']];
+       	$items[] = ['content' => '<a href="#" class="edit-media" data-url="/mata-cms/carousel/carousel-item/update?id=' . $carouselItem->Id . '" data-source="" data-toggle="modal" data-target="#edit-media-modal"><span class="glyphicon glyphicon-pencil"></span></a><div class="grid-item" data-item-id="'.$carouselItem->Id.'"></div>'];
+    $items[] =['content' => '<a href="#" id="add-media" data-toggle="modal" data-target="#add-media-modal">+</a>', 'disabled' => true, 'options' => ['style' => 'cursor:text;', 'id' => 'add-media-container']]
     ?>
 
     <?= Sortable::widget([
@@ -40,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
 				});
 				$.ajax({
                     type: "POST",
-                    url: "rearrangeCarouselItems",
+                    url: "/mata-cms/carousel/carousel-item/rearrange",
                     data: {"ids":carouselItemsIds},
                     dataType: "json",
                     success: function(data) {
@@ -55,3 +50,48 @@ $this->params['breadcrumbs'][] = $this->title;
     ]); ?>
 
 </div>
+
+<?php
+Modal::begin([
+    'header' => '<h3>ADD MEDIA</h3>',
+    'id' => 'add-media-modal'
+    ]);
+    ?>
+<div>
+    <div id="media-type-buttons">
+        <a href="#" id="add-image-button">Upload image</a>
+        <a href="#" id="add-video-url-button">Add video url</a>
+    </div>
+    <div id="upload-image-container">
+        <?= mata\widgets\fineuploader\Fineuploader::widget([
+            'name' => 'CarouselItemMedia',
+            'uploadSuccessEndpoint' => '/mata-cms/carousel/carousel-item/upload-successful?carouselId='.$carouselModel->Id,
+            'view' => '/carousel/_fineuploader',
+            'events' => [
+                'complete' => "$('<li role=\"option\" aria-grabbed=\"false\" draggable=\"true\"><a href=\"#\" class=\"edit-media\" data-url=\"/mata-cms/carousel/carousel-item/update?id='+uploadSuccessResponse.Id+'\" data-source=\"\" data-toggle=\"modal\" data-target=\"#edit-media-modal\"><span class=\"glyphicon glyphicon-pencil\"></span></a><div class=\"grid-item\" data-item-id=\"'+uploadSuccessResponse.Id+'\"></div></li>').insertBefore('.carousel-view ul.sortable li#add-media-container');
+                $('ul.sortable').sortable('reload');
+                $('#add-media-modal').modal('hide');"
+            ]
+            ]);
+        ?>
+    </div>
+    <div id="add-video-url-container">
+         <?= matacms\widgets\videourl\VideoUrl::widget([
+            'name' => 'CarouselItemMediaVideoUrl',
+            'endpoint' => '/mata-cms/carousel/carousel-item/process-video-url?carouselId='.$carouselModel->Id
+            ]);
+        ?>
+    </div>
+</div>
+<?php 
+Modal::end(); ?>
+
+<?php
+Modal::begin([
+    'header' => '<h3>EDIT MEDIA</h3>',
+    'id' => 'edit-media-modal'
+    ]);
+    ?>
+
+<?php 
+Modal::end(); ?>
