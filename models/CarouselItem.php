@@ -4,6 +4,7 @@ namespace matacms\carousel\models;
 
 use Yii;
 use matacms\carousel\models\Carousel;
+use mata\media\models\Media;
 use yii\db\ActiveQuery;
 
 /**
@@ -55,6 +56,12 @@ class CarouselItem extends \matacms\db\ActiveRecord
     public function getCarousel() {
         return $this->hasOne(Carousel::className(), ['Id' => 'CarouselId']);
     }
+
+    public function getMedia() {
+        return Media::find()->forItem($this)->one();
+    }
+
+    
 
     public function beforeSave($insert) {
         if($insert) {

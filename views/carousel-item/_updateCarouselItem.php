@@ -17,7 +17,7 @@ if(!$isVideoUrlMedia):
     'view' => '/carousel/_fineuploader',
     'model' => $carouselItemModel,
     'events' => [
-        'complete' => ""
+        'complete' => "$('.grid-item[data-item-id=\"' + uploadSuccessResponse.Id + '\"] img').attr('src', uploadSuccessResponse.URI);"
     ],
     'options' => [
         'multiple' => false
@@ -33,7 +33,7 @@ if(!$isVideoUrlMedia):
         'name' => 'CarouselItemMediaVideoUrl',
         'endpoint' => '/mata-cms/carousel/carousel-item/process-video-url?carouselId='.$carouselItemModel->CarouselId.'&carouselItemId='.$carouselItemModel->Id,
         'formModel' => $formModel,
-        'onComplete' => "",
+        'onComplete' => "$('.grid-item[data-item-id=\"' + data.Id + '\"] img').attr('src', data.Extra.thumbnailUrl);",
         'options' => [
             'showSubmitButton' => false
         ]

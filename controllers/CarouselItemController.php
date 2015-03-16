@@ -14,6 +14,7 @@ use mata\media\models\Media;
 use yii\helpers\Json;
 use matacms\widgets\ActiveForm;
 use yii\web\Response;
+use matacms\widgets\videourl\helpers\VideoUrlHelper;
 
 class CarouselItemController extends Controller 
 {
@@ -131,19 +132,23 @@ class CarouselItemController extends Controller
                     "URI" => $videoUrlForm->videoUrl,
                     "Width" => 0,
                     "Height" => 0,
-                    "MimeType" => $this->identifyVideoServiceProvider($videoUrlForm->videoUrl)
+                    "MimeType" => $this->identifyVideoServiceProvider($videoUrlForm->videoUrl),
+                    "Extra" => Json::encode(['thumbnailUrl' => VideoUrlHelper::getPicture($videoUrlForm->videoUrl)])
                     );
             } else {
                 $mediaModel->attributes = array(
                     "Name" => $videoUrlForm->videoUrl,
                     "URI" => $videoUrlForm->videoUrl,
-                    "MimeType" => $this->identifyVideoServiceProvider($videoUrlForm->videoUrl)
+                    "MimeType" => $this->identifyVideoServiceProvider($videoUrlForm->videoUrl),
+                    "Extra" => Json::encode(['thumbnailUrl' => VideoUrlHelper::getPicture($videoUrlForm->videoUrl)])
                     );
             }
 
             if ($mediaModel->save() == false)
                 throw new \yii\web\HttpException(500, $mediaModel->getTopError());
 
+            // For response only
+            $mediaModel->Extra = Json::decode($mediaModel->Extra);
             Yii::$app->response->format = Response::FORMAT_JSON;
             echo Json::encode($mediaModel);
 

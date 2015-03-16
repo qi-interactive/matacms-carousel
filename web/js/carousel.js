@@ -30,10 +30,12 @@ $(window).ready(function() {
     $('#add-media-modal').on('hide.bs.modal', function () {
     	$('#media-type-buttons', this).show();
         $('#add-video-url-container form')[0].reset();
+        $('.video-preview-container').empty();
         $('#upload-image-container, #add-video-url-container', this).hide();
     });
 
     $('#edit-media-modal').on('hide.bs.modal', function () {
+        $('.video-preview-container').empty();
     	// $('#media-type-buttons', this).show();
     	// $('#upload-image-container, #add-video-url-container', this).hide();
     });

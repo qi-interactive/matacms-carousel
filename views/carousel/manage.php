@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use kartik\sortable\Sortable;
 use yii\bootstrap\Modal;
+use mata\media\helpers\MediaHelper;
 
 /* @var $this yii\web\View */
 /* @var $model mata\contentblock\models\ContentBlock */
@@ -19,8 +20,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php
     // Generate sortable items
     $items = [];
-    foreach($carouselItemsModel as $carouselItem)
-       	$items[] = ['content' => '<a href="#" class="edit-media" data-url="/mata-cms/carousel/carousel-item/update?id=' . $carouselItem->Id . '" data-source="" data-toggle="modal" data-target="#edit-media-modal"><span class="glyphicon glyphicon-pencil"></span></a><div class="grid-item" data-item-id="'.$carouselItem->Id.'"></div>'];
+    foreach($carouselItemsModel as $carouselItem) {
+        $media = $carouselItem->getMedia();
+        // $type = MediaHelper::getType($media->MimeType);
+       	$items[] = ['content' => '<a href="#" class="edit-media" data-url="/mata-cms/carousel/carousel-item/update?id=' . $carouselItem->Id . '" data-source="" data-toggle="modal" data-target="#edit-media-modal"><span class="glyphicon glyphicon-pencil"></span></a><div class="grid-item" data-item-id="'.$carouselItem->Id.'"><div class="grid-item-centerer"></div>' . MediaHelper::getPreview($media) . '</div>'];
+    }
     $items[] =['content' => '<a href="#" id="add-media" data-toggle="modal" data-target="#add-media-modal">+</a>', 'disabled' => true, 'options' => ['style' => 'cursor:text;', 'id' => 'add-media-container']]
     ?>
 
@@ -68,7 +72,7 @@ Modal::begin([
             'uploadSuccessEndpoint' => '/mata-cms/carousel/carousel-item/upload-successful?carouselId='.$carouselModel->Id,
             'view' => '/carousel/_fineuploader',
             'events' => [
-                'complete' => "$('<li role=\"option\" aria-grabbed=\"false\" draggable=\"true\"><a href=\"#\" class=\"edit-media\" data-url=\"/mata-cms/carousel/carousel-item/update?id='+uploadSuccessResponse.Id+'\" data-source=\"\" data-toggle=\"modal\" data-target=\"#edit-media-modal\"><span class=\"glyphicon glyphicon-pencil\"></span></a><div class=\"grid-item\" data-item-id=\"'+uploadSuccessResponse.Id+'\"></div></li>').insertBefore('.carousel-view ul.sortable li#add-media-container');
+                'complete' => "$('<li role=\"option\" aria-grabbed=\"false\" draggable=\"true\"><a href=\"#\" class=\"edit-media\" data-url=\"/mata-cms/carousel/carousel-item/update?id='+uploadSuccessResponse.Id+'\" data-source=\"\" data-toggle=\"modal\" data-target=\"#edit-media-modal\"><span class=\"glyphicon glyphicon-pencil\"></span></a><div class=\"grid-item\" data-item-id=\"'+uploadSuccessResponse.Id+'\"><div class=\"grid-item-centerer\"></div><img src=\"' + uploadSuccessResponse.URI + '\" draggable=\"false\"></div></li>').insertBefore('.carousel-view ul.sortable li#add-media-container');
                 $('ul.sortable').sortable('reload');
                 $('#add-media-modal').modal('hide');"
             ]
