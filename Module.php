@@ -25,8 +25,13 @@ class Module extends BaseModule {
 	public function getNavigation() {
 		$carousels = \matacms\carousel\models\Carousel::find()->select(['Title', 'Region'])->all();
 		$navigation = [];
-		foreach ($carousels as $carousel)
-			$navigation[$carousel->Title] = "/mata-cms/carousel/carousel/manage?region=$carousel->Region";
+		foreach ($carousels as $carousel) {
+			$navigation[] = [
+				'label' => $carousel->Title,
+				'url' => "/mata-cms/carousel/carousel/manage?region=$carousel->Region",
+				'icon' => "/images/module-icon.svg"
+			];
+		}
 		
 		return $navigation;
 	}

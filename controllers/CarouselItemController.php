@@ -104,8 +104,7 @@ class CarouselItemController extends Controller
         if ($mediaModel->save() == false)
             throw new \yii\web\HttpException(500, $mediaModel->getTopError());
 
-
-        $this->setResponseContentType("application/json");
+        Yii::$app->response->format = Response::FORMAT_JSON;
         echo Json::encode($mediaModel);
     }
 

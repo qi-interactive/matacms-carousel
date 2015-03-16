@@ -7,7 +7,10 @@ use matacms\widgets\videourl\models\VideoUrlForm;
 
 ?>
 
-<?php if(!in_array($mediaModel->MimeType, ['video/youtube', 'video/vimeo'])): ?>
+<?php 
+$isVideoUrlMedia = in_array($mediaModel->MimeType, ['video/youtube', 'video/vimeo']);
+if(!$isVideoUrlMedia): 
+?>
 <?= mata\widgets\fineuploader\Fineuploader::widget([
     'name' => 'CarouselItemMedia',
     'uploadSuccessEndpoint' => '/mata-cms/carousel/carousel-item/upload-successful?carouselId='.$carouselItemModel->CarouselId.'&carouselItemId='.$carouselItemModel->Id,
@@ -15,6 +18,9 @@ use matacms\widgets\videourl\models\VideoUrlForm;
     'model' => $carouselItemModel,
     'events' => [
         'complete' => ""
+    ],
+    'options' => [
+        'multiple' => false
     ]
     ]);
 ?>
@@ -23,12 +29,16 @@ use matacms\widgets\videourl\models\VideoUrlForm;
     $formModel = new VideoUrlForm;
     $formModel->videoUrl = $mediaModel->URI;
     ?>
-    <?= matacms\widgets\videourl\VideoUrl::widget([
+    <?php $videoUrlWidget = matacms\widgets\videourl\VideoUrl::widget([
         'name' => 'CarouselItemMediaVideoUrl',
         'endpoint' => '/mata-cms/carousel/carousel-item/process-video-url?carouselId='.$carouselItemModel->CarouselId.'&carouselItemId='.$carouselItemModel->Id,
         'formModel' => $formModel,
-        'onComplete' => ""
+        'onComplete' => "",
+        'options' => [
+            'showSubmitButton' => false
+        ]
         ]);
+    echo $videoUrlWidget;
     ?>
 
 <?php endif; ?>
@@ -46,10 +56,21 @@ use matacms\widgets\videourl\models\VideoUrlForm;
 
     <?php ActiveForm::end(); ?>
     
-    <?php 
+    <?php
+
+    $onBeforeSubmit = "";
+    if($isVideoUrlMedia) {
+        $onBeforeSubmit = "var videoUrlForm = $('#edit-media-modal .video-url form');
+        videoUrlForm.trigger('submit');
+        if(videoUrlForm.find('.has-error').length) {
+            return false;
+        }";
+    }
 
     $this->registerJs("
        $('#" . $form->id . "').on('beforeSubmit', function(event, jqXHR, settings) {
+        " . $onBeforeSubmit . "
+        
         var form = $(this);
         if(form.find('.has-error').length) {
             return false;
