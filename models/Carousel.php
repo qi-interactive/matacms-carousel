@@ -49,7 +49,9 @@ class Carousel extends \matacms\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getItems() {
-        return $this->hasMany(CarouselItem::className(), ['CarouselId' => 'Id']);
+    public function getItems()
+    {
+        return $this->hasMany(CarouselItem::className(), ['CarouselId' => 'Id'])->orderBy('Order ASC');
     }
+
 }

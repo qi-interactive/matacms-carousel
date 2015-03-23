@@ -11,7 +11,7 @@ use matacms\widgets\videourl\models\VideoUrlForm;
 $isVideoUrlMedia = in_array($mediaModel->MimeType, ['video/youtube', 'video/vimeo']);
 if(!$isVideoUrlMedia): 
 ?>
-<?= mata\widgets\fineuploader\Fineuploader::widget([
+<?= mata\widgets\fineuploader\FineUploader::widget([
     'name' => 'CarouselItemMedia',
     'uploadSuccessEndpoint' => '/mata-cms/carousel/carousel-item/upload-successful?carouselId='.$carouselItemModel->CarouselId.'&carouselItemId='.$carouselItemModel->Id,
     'view' => '/carousel/_fineuploader',

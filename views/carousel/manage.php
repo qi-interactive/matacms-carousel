@@ -67,7 +67,7 @@ Modal::begin([
         <a href="#" id="add-video-url-button">Add video url</a>
     </div>
     <div id="upload-image-container">
-        <?= mata\widgets\fineuploader\Fineuploader::widget([
+        <?= mata\widgets\fineuploader\FineUploader::widget([
             'name' => 'CarouselItemMedia',
             'uploadSuccessEndpoint' => '/mata-cms/carousel/carousel-item/upload-successful?carouselId='.$carouselModel->Id,
             'view' => '/carousel/_fineuploader',
