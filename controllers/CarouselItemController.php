@@ -58,8 +58,8 @@ class CarouselItemController extends Controller
                 throw new \yii\web\HttpException(500, $carouselItemModel->getTopError());
         }        
 
-        $s3Endpoint = KeyValue::findByKey(FineUploader::S3_ENDPOINT);
-        $s3Bucket = KeyValue::findByKey(FineUploader::S3_BUCKET);
+        $s3Endpoint = KeyValue::findValue(FineUploader::S3_ENDPOINT);
+        $s3Bucket = KeyValue::findValue(FineUploader::S3_BUCKET);
 
         $imageURL = $s3Endpoint .  $s3Bucket  . "/" . urlencode(\Yii::$app->getRequest()->post("key"));
 
