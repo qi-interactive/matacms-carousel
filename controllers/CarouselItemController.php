@@ -61,7 +61,7 @@ class CarouselItemController extends Controller
         $s3Endpoint = KeyValue::findValue(FineUploader::S3_ENDPOINT);
         $s3Bucket = KeyValue::findValue(FineUploader::S3_BUCKET);
 
-        $imageURL = $s3Endpoint .  $s3Bucket  . "/" . urlencode(\Yii::$app->getRequest()->post("key"));
+        $imageURL = $s3Endpoint . "/" . $s3Bucket  . "/" . urlencode(\Yii::$app->getRequest()->post("key"));
 
         $mediaWidth = 0; 
         $mediaHeight = 0;
@@ -158,6 +158,13 @@ class CarouselItemController extends Controller
         }      
     }
 
+    public function actionAddMedia($carouselId) 
+    {        
+        return $this->renderAjax('_create', [
+            'carouselId' => $carouselId
+            ]);
+    }
+
     public function actionUpdate($id) 
     {
         $carouselItemModel = CarouselItem::find()->where(["Id" => $id])->one();
@@ -173,7 +180,7 @@ class CarouselItemController extends Controller
             Yii::$app->end();
         }
         
-        return $this->renderAjax('_updateCarouselItem', [
+        return $this->renderAjax('_update', [
             'carouselItemModel' => $carouselItemModel,
             'mediaModel' => Media::find()->forItem($carouselItemModel)->one()
             ]);

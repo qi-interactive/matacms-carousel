@@ -29,12 +29,11 @@ class CarouselController extends Controller
     public function actionManage($region) 
     {
     	$carouselClient = new CarouselClient;
-    	$carousel = $carouselClient->findByRegion($region);
-        $carouselItems = CarouselItem::find(["Region" => $region])->orderBy('Order ASC')->all();
+    	$carouselModel = $carouselClient->findByRegion($region);
         
         return $this->render('manage', [
-        	'carouselModel' => $carousel,
-            'carouselItemsModel' => $carouselItems
+        	'carouselModel' => $carouselModel,
+            'carouselItemsModel' => $carouselModel->items
             ]);
     }
 

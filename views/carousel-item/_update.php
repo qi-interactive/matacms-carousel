@@ -60,7 +60,7 @@ if(!$isVideoUrlMedia):
 
     $onBeforeSubmit = "";
     if($isVideoUrlMedia) {
-        $onBeforeSubmit = "var videoUrlForm = $('#edit-media-modal .video-url form');
+        $onBeforeSubmit = "var videoUrlForm = $('#media-modal .video-url form');
         videoUrlForm.trigger('submit');
         if(videoUrlForm.find('.has-error').length) {
             return false;
@@ -83,7 +83,7 @@ if(!$isVideoUrlMedia):
             dataType: 'json',
             success: function(data) {
                 if(data.Response == 'OK')
-                    $('#edit-media-modal').modal('hide');
+                    $('#media-modal').modal('hide');
             }
         });
 

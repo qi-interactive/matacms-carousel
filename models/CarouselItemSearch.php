@@ -59,7 +59,7 @@ class CarouselItemSearch extends Carousel {
             'Id' => $this->Id,
         ]);
 
-        $query->andFilterWhere(['like', 'Caption', $this->Caption])
+        $query->andFilterWhere(['like', 'Caption', $this->Caption]);
 
         return $dataProvider;
     }

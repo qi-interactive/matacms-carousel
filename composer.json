@@ -11,5 +11,8 @@
         "psr-4": {
             "matacms\\carousel\\": ""
         }
+    },
+    "extra": {
+        "bootstrap": "matacms\\carousel\\Bootstrap"
     }
 }
