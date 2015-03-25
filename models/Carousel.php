@@ -15,6 +15,11 @@ use yii\db\ActiveQuery;
  */
 class Carousel extends \matacms\db\ActiveRecord
 {
+
+    public static function find() {
+        return new CarouselQuery(get_called_class());
+    }
+
     /**
      * @inheritdoc
      */
@@ -55,3 +60,15 @@ class Carousel extends \matacms\db\ActiveRecord
     }
 
 }
+
+class CarouselQuery extends ActiveQuery {
+
+    public function init()
+    {
+        parent::init();
+        $this->andFilterWhere(['not like', 'Region', '-tmp_']); // <- to be discussed
+    }
+
+}
+
+
