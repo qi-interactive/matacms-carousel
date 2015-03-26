@@ -105,6 +105,8 @@ class CarouselItemController extends Controller
         if ($mediaModel->save() == false)
             throw new \yii\web\HttpException(500, $mediaModel->getTopError());
 
+        // Change Media Id to CarouselItem Id
+        $mediaModel->Id = $carouselItemModel->Id;
         Yii::$app->response->format = Response::FORMAT_JSON;
         echo Json::encode($mediaModel);
     }
@@ -150,6 +152,8 @@ class CarouselItemController extends Controller
             // For response only
             $mediaModel->Extra = Json::decode($mediaModel->Extra);
             Yii::$app->response->format = Response::FORMAT_JSON;
+            // Change Media Id to CarouselItem Id
+            $mediaModel->Id = $carouselItemModel->Id;
             echo Json::encode($mediaModel);
 
         } else {
