@@ -8,7 +8,7 @@ use matacms\carousel\models\CarouselSearch;
 use matacms\carousel\models\CarouselItem;
 use matacms\controllers\module\Controller;
 use matacms\carousel\clients\CarouselClient;
-use mata\widgets\fineuploader\Fineuploader;
+use mata\widgets\fineuploader\FineUploader;
 use mata\keyvalue\models\KeyValue;
 use mata\media\models\Media;
 use yii\helpers\Json;
