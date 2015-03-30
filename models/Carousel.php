@@ -66,7 +66,7 @@ class CarouselQuery extends ActiveQuery {
     public function init()
     {
         parent::init();
-        $this->andFilterWhere(['not like', 'Region', '-tmp_']); // <- to be discussed
+        $this->andWhere('IsDraft != 1');
     }
 
 }

@@ -190,6 +190,23 @@ class CarouselItemController extends Controller
             ]);
     }
 
+    public function actionDelete($id) 
+    {
+        $carouselItemModel = CarouselItem::find()->where(["Id" => $id])->one();
+
+        Yii::$app->response->format = Response::FORMAT_JSON;
+
+        if(Yii::$app->request->getIsPost()) {
+            if($carouselItemModel->delete())
+                echo Json::encode(['Response'=>'OK']);
+            else
+                echo Json::encode(['Response'=>'ERROR']);
+            Yii::$app->end();
+        }
+        echo Json::encode(['Response'=>'ERROR']);
+        Yii::$app->end();
+    }
+
     protected function identifyVideoServiceProvider($value) 
     {
         $url = preg_replace('#\#.*$#', '', trim($value));

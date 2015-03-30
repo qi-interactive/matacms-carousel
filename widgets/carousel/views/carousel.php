@@ -17,7 +17,7 @@ use mata\media\helpers\MediaHelper;
         foreach($carouselItemsModel as $carouselItem) {
             $media = $carouselItem->getMedia();
             // $type = MediaHelper::getType($media->MimeType);
-            $items[] = ['content' => '<a href="#" class="edit-media" data-title="Edit Media" data-url="/mata-cms/carousel/carousel-item/update?id=' . $carouselItem->Id . '" data-source="" data-toggle="modal" data-target="#media-modal"><span class="glyphicon glyphicon-pencil"></span></a><div class="grid-item" data-item-id="'.$carouselItem->Id.'"><div class="grid-item-centerer"></div>' . MediaHelper::getPreview($media) . '</div>'];
+            $items[] = ['content' => '<a href="#" class="edit-media" data-title="Edit Media" data-url="/mata-cms/carousel/carousel-item/update?id=' . $carouselItem->Id . '" data-source="" data-toggle="modal" data-target="#media-modal"><span class="glyphicon glyphicon-pencil"></span></a><a href="#" class="delete-media" data-url="/mata-cms/carousel/carousel-item/delete?id=' . $carouselItem->Id . '"><span class="glyphicon glyphicon-remove"></span></a><div class="grid-item" data-item-id="'.$carouselItem->Id.'"><div class="grid-item-centerer"></div>' . MediaHelper::getPreview($media) . '</div>'];
         }
     }
     

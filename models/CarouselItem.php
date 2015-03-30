@@ -61,8 +61,6 @@ class CarouselItem extends \matacms\db\ActiveRecord
         return Media::find()->forItem($this)->one();
     }
 
-    
-
     public function beforeSave($insert) {
         if($insert) {
             $lastOrder = $this->owner->find()->select(sprintf("MAX(`%s`)", 'Order'))->where([
@@ -71,5 +69,10 @@ class CarouselItem extends \matacms\db\ActiveRecord
             $this->owner->Order = $lastOrder+1;
         }
         return parent::beforeSave($insert);
+    }
+
+    public function afterDelete() {
+        Media::find()->forItem($this)->one()->delete();
+        return parent::afterDelete();
     }
 }

@@ -31,5 +31,25 @@ $(window).ready(function() {
     	return false;
     });
 
+    $(document).on('click', '.delete-media', function() {
+        var url = $(this).attr("data-url");
+        var parent = $(this).parent('li');
+
+        $.ajax({
+            type: "POST",
+            url: url,
+            dataType: "json",
+            success: function(data) {
+                console.log(data.Response);
+                parent.remove();
+                $('.carousel-view ul.sortable').matasortable('reload');
+            },
+            error: function() {
+                console.log(data.Response);
+            }
+        });
+        return false;
+    });
+
     
 })

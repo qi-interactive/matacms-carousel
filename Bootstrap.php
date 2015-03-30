@@ -52,6 +52,7 @@ class Bootstrap extends \mata\base\Bootstrap
 		if($tmpRegion && !empty($carouselModel) && $carouselModel->getLabel()) {
 			$carouselModel->Title = $model->getLabel();
 			$carouselModel->Region = $model->getDocumentId();
+			$carouselModel->IsDraft = 0;
 			if ($carouselModel->save() == false)
 				throw new \yii\web\HttpException(500, $carouselModel->getTopError());
 		}

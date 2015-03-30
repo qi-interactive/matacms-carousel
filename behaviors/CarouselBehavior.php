@@ -38,6 +38,9 @@ class CarouselBehavior extends \yii\base\Behavior {
 			$carouselModel = new Carousel;
 			$carouselModel->Title = ($this->owner->model->isNewRecord) ? $documentId : $this->owner->model->getLabel();
 			$carouselModel->Region = $documentId;
+			if($this->owner->model->isNewRecord)
+				$carouselModel->IsDraft = 1;
+			
 			if ($carouselModel->save() == false)
 				throw new \yii\web\HttpException(500, $carouselModel->getTopError());
 		}

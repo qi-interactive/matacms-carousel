@@ -60,7 +60,7 @@ class CarouselSearch extends Carousel {
 
         $query->andFilterWhere(['like', 'Title', $this->Title])
             ->andFilterWhere(['like', 'Region', $this->Region])
-            ->andFilterWhere(['not like', 'Region', '-tmp_']); // <- to be discussed
+            >andWhere('IsDraft != 1');
 
         return $dataProvider;
     }
