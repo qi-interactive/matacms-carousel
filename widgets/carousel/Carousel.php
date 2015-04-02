@@ -22,6 +22,7 @@ class Carousel extends InputWidget {
     public $carouselItemsModel;
     public $selector = null;
     public $htmlOptions = [];
+    public $mediaTypes = ['image', 'video'];
 
 
     public function init(){
@@ -46,7 +47,9 @@ class Carousel extends InputWidget {
         echo $this->render('carousel', [
                 'carouselModel' => $this->carouselModel,
                 'carouselItemsModel' => $this->carouselItemsModel,
-                'view' => $this->getView()
+                'mediaTypes' => $this->mediaTypes,
+                'view' => $this->getView(),
+                'widgetId' => $this->htmlOptions['id'],
             ]);
 
         echo '<input type="hidden" name="CarouselRegions[]" value="' . $this->carouselModel->Region . '">';

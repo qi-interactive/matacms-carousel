@@ -45,13 +45,16 @@ class Bootstrap extends \mata\base\Bootstrap
 
 	private function updateRegion($model, $tmpRegion)
 	{
+		$attributePos = strpos($tmpRegion, "::");
+		if($attributePos)
+			$attribute = substr(substr($tmpRegion, $attributePos), 2);
 
 		$carouselClient = new CarouselClient;
 		$carouselModel = $carouselClient->findByRegion($tmpRegion);
 
 		if($tmpRegion && !empty($carouselModel) && $carouselModel->getLabel()) {
 			$carouselModel->Title = $model->getLabel();
-			$carouselModel->Region = $model->getDocumentId();
+			$carouselModel->Region = $model->getDocumentId($attribute);
 			$carouselModel->IsDraft = 0;
 			if ($carouselModel->save() == false)
 				throw new \yii\web\HttpException(500, $carouselModel->getTopError());

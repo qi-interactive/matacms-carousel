@@ -162,14 +162,16 @@ class CarouselItemController extends Controller
         }      
     }
 
-    public function actionAddMedia($carouselId) 
+    public function actionAddMedia($carouselId, $widgetId, $image = false, $video = false) 
     {        
         return $this->renderAjax('_create', [
-            'carouselId' => $carouselId
+            'carouselId' => $carouselId,
+            'widgetId' => $widgetId,
+            'mediaTypes' => ['image' => $image, 'video' => $video],
             ]);
     }
 
-    public function actionUpdate($id) 
+    public function actionUpdate($id, $widgetId = false) 
     {
         $carouselItemModel = CarouselItem::find()->where(["Id" => $id])->one();
 
@@ -186,6 +188,7 @@ class CarouselItemController extends Controller
         
         return $this->renderAjax('_update', [
             'carouselItemModel' => $carouselItemModel,
+            'widgetId' => $widgetId,
             'mediaModel' => Media::find()->forItem($carouselItemModel)->one()
             ]);
     }

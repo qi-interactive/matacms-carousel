@@ -5,6 +5,7 @@ namespace matacms\carousel\models;
 use Yii;
 use matacms\carousel\models\CarouselItem;
 use yii\db\ActiveQuery;
+use mata\arhistory\behaviors\HistoryBehavior;
 
 /**
  * This is the model class for table "matacms_carousel".
@@ -15,6 +16,12 @@ use yii\db\ActiveQuery;
  */
 class Carousel extends \matacms\db\ActiveRecord
 {
+
+    public function behaviors() {
+        return [
+            HistoryBehavior::className()
+        ];
+    }
 
     public static function find() {
         return new CarouselQuery(get_called_class());
