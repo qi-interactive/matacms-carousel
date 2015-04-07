@@ -6,6 +6,7 @@ use Yii;
 use matacms\carousel\models\Carousel;
 use mata\media\models\Media;
 use yii\db\ActiveQuery;
+use mata\arhistory\behaviors\HistoryBehavior;
 
 /**
  * This is the model class for table "matacms_carouselitem".
@@ -17,6 +18,13 @@ use yii\db\ActiveQuery;
  */
 class CarouselItem extends \matacms\db\ActiveRecord
 {
+
+    public function behaviors() {
+        return [
+            HistoryBehavior::className()
+        ];
+    }
+
     /**
      * @inheritdoc
      */
