@@ -86,7 +86,7 @@ class CarouselItemController extends Controller
             $mediaModel = new Media() ;
             $mediaModel->attributes = array(
                 "Name" => \Yii::$app->getRequest()->post("name"),
-                "DocumentId" => $carouselItemModel->getDocumentId(),
+                "DocumentId" => $carouselItemModel->getDocumentId()->getId(),
                 "URI" => $imageURL,
                 "Width" => $mediaWidth,
                 "Height" => $mediaHeight,
@@ -130,7 +130,7 @@ class CarouselItemController extends Controller
                 $mediaModel = new Media() ;
                 $mediaModel->attributes = array(
                     "Name" => $videoUrlForm->videoUrl,
-                    "DocumentId" => $carouselItemModel->getDocumentId(),
+                    "DocumentId" => $carouselItemModel->getDocumentId()->getId(),
                     "URI" => $videoUrlForm->videoUrl,
                     "Width" => 0,
                     "Height" => 0,

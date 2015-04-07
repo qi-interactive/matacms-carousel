@@ -111,7 +111,7 @@ class CarouselBehavior extends \yii\base\Behavior {
 	        $mediaModel = new Media() ;
             $mediaModel->attributes = array(
                 "Name" => $fileName,
-                "DocumentId" => $carouselItemModel->getDocumentId(),
+                "DocumentId" => $carouselItemModel->getDocumentId()->getId(),
                 "URI" => $imageURL,
                 "Width" => $mediaWidth,
                 "Height" => $mediaHeight,
@@ -127,7 +127,7 @@ class CarouselBehavior extends \yii\base\Behavior {
 			$mediaModel = new Media() ;
             $mediaModel->attributes = array(
                 "Name" => $videoURL,
-                "DocumentId" => $carouselItemModel->getDocumentId(),
+                "DocumentId" => $carouselItemModel->getDocumentId()->getId(),
                 "URI" => $videoURL,
                 "Width" => 0,
                 "Height" => 0,
