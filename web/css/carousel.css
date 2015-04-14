@@ -1,3 +1,18 @@
+/* to be applied into carousel drag n drop functionality*/
+
+/*.qq-upload-drop-area, .qq-upload-extra-drop-area {
+	background: @blue-corn;
+	color: @light-purple;
+	border: 3px dashed @light-purple;
+	border-radius: 2px;
+
+	span {
+		font-weight: @proxima-bold;
+		font-size: @font-size-extra-medium;
+	}
+
+}*/
+
 .modal {
 	z-index: 1100 !important;
 }
@@ -7,9 +22,11 @@
 }
 
 .sortable.grid li {
-	width: 150px;
-	height: 150px;
+	width: 200px;
+	height: 200px;
 	position: relative;
+	text-align: center;
+
 }
 
 .sortable.grid li a.edit-media {
@@ -32,9 +49,9 @@
 }
 
 .sortable.grid li .grid-item .grid-item-centerer {
-  display: inline-block;
-  vertical-align: middle;
-  height: 100%;
+	display: inline-block;
+	vertical-align: middle;
+	height: 100%;
 }
 
 .sortable.grid li .grid-item img {
@@ -54,8 +71,6 @@
 }
 
 #add-media {
-	height: 132px;
-	width: 132px;
 	display: block;
 	vertical-align: middle;
 	line-height: 132px;
@@ -65,9 +80,6 @@
 	font-size: 40px;
 }
 
-#add-media:hover {
-	color: black;
-}
 
 #media-type-buttons {
 	width: 240px;
