@@ -30,10 +30,10 @@ class CarouselBehavior extends \yii\base\Behavior {
 		$this->owner->adjustLabelFor($options);
 		// $this->owner->labelOptions["label"] = $this->owner->attribute;
 
-		$documentId = $this->owner->model->getDocumentId($this->owner->attribute);
+		$documentId = $this->owner->model->getDocumentId($this->owner->attribute)->getId();
 
-		$pattern = '/([a-zA-Z\\\]*)-([a-zA-Z0-9]*)(::)?([a-zA-Z]*)?/';
-		preg_match($pattern, $documentId, $matches);	
+		$pattern = '/([a-zA-Z\\\]*)-([a-zA-Z0-9]*)(::)?([a-zA-Z0-9]*)?/';
+		preg_match($pattern, $documentId, $matches);
 
 		if(!empty($matches) && empty($matches[2])) {
 			$pk = uniqid('tmp_');
