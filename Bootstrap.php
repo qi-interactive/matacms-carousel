@@ -46,6 +46,7 @@ class Bootstrap extends \mata\base\Bootstrap
 	private function updateRegion($model, $tmpRegion)
 	{
 		$attributePos = strpos($tmpRegion, "::");
+		$attribute = '';
 		if($attributePos)
 			$attribute = substr(substr($tmpRegion, $attributePos), 2);
 
