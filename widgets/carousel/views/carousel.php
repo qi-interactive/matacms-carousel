@@ -20,7 +20,7 @@ use mata\media\helpers\MediaHelper;
             $media = $carouselItem->getMedia();
             // $type = MediaHelper::getType($media->MimeType);
             $items[] = ['content' => '
-            <div class="grid" data-item-id="'.$carouselItem->Id.'">
+            <div class="grid-item" data-item-id="'.$carouselItem->Id.'">
                 <figure class="effect-winston"><div class="img-container">' .
                     MediaHelper::getPreview($media) . '</div>
                     <figcaption>
