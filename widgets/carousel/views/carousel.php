@@ -24,7 +24,7 @@ use mata\media\helpers\MediaHelper;
                 <figure class="effect-winston"><div class="img-container">' .
                     MediaHelper::getPreview($media) . '</div>
                     <figcaption>
-                        <div class="caption-text">'.$carouselItem->Caption.'<div class="fadding-container"> </div> </div>
+                        <div class="caption-text"><span>'.$carouselItem->Caption.'</span><div class="fadding-container"> </div> </div>
                         <p>
                             <a href="#" class="edit-media" data-title="Edit Media" data-url="/mata-cms/carousel/carousel-item/update?id=' . $carouselItem->Id . $widgetIdParam . '" data-source="" data-toggle="modal" data-target="#media-modal">
                                 <span></span></a>
