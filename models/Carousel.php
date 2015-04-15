@@ -17,12 +17,6 @@ use mata\arhistory\behaviors\HistoryBehavior;
 class Carousel extends \matacms\db\ActiveRecord
 {
 
-    public function behaviors() {
-        return [
-            HistoryBehavior::className()
-        ];
-    }
-
     public static function find() {
         return new CarouselQuery(get_called_class());
     }
@@ -42,7 +36,8 @@ class Carousel extends \matacms\db\ActiveRecord
     {
         return [
             [['Title', 'Region'], 'required'],
-            [['Title', 'Region'], 'string', 'max' => 128]
+            [['Title', 'Region'], 'string', 'max' => 128],
+            [['Id', 'IsDraft'], 'safe']
         ];
     }
 

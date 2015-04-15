@@ -19,12 +19,6 @@ use mata\arhistory\behaviors\HistoryBehavior;
 class CarouselItem extends \matacms\db\ActiveRecord
 {
 
-    public function behaviors() {
-        return [
-            HistoryBehavior::className()
-        ];
-    }
-
     /**
      * @inheritdoc
      */
