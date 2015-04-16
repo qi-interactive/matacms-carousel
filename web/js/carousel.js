@@ -38,7 +38,7 @@ $(window).ready(function() {
 
     $(document).on('click', '.delete-media', function() {
         var url = $(this).attr("data-url");
-        var parent = $(this).parent('li');
+        var parent = $(this).parents('li');
 
         $.ajax({
             type: "POST",
