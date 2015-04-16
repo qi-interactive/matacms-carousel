@@ -21,6 +21,7 @@ use matacms\widgets\videourl\models\VideoUrlForm;
         <div id="upload-image-container">
             <?= mata\widgets\fineuploader\FineUploader::widget([
                 'name' => 'CarouselItemMedia',
+                'id' => 'fineuploader-carousel-'.$carouselId,
                 'uploadSuccessEndpoint' => '/mata-cms/carousel/carousel-item/upload-successful?carouselId='.$carouselId,
                 'view' => '@matacms/carousel/views/carousel/_fineuploader',
                 'events' => [

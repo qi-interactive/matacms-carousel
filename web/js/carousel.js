@@ -19,6 +19,11 @@ $(window).ready(function() {
         });
     });
 
+    $('#media-modal').on('hidden.bs.modal', function (e) {
+        $(this).find(".modal-body script").remove();
+        $(this).find(".modal-body").contents().remove();
+    });
+
     $(document).on('click', '#media-modal #media-type-buttons a', function() {
     	var id = $(this).attr('id');
     	$('#media-modal #media-type-buttons').hide();

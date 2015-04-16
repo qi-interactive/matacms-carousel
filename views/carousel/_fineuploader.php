@@ -9,10 +9,12 @@ use yii\web\View;
 
 	<?php 
 
+	$templateId = 'qq-simple-thumbnails-template-'.$widget->id;
+
 	$this->registerJs("
 		$(document).ready(function() {
 
-			var manualuploader = $('" . $widget->selector . " .fine-uploader').fineUploaderS3({
+			var carouselManualUploader = $('" . $widget->selector . " .fine-uploader').fineUploaderS3({
 				request: {
 					endpoint: 'https://s3-eu-west-1.amazonaws.com/" .  $widget->s3Bucket . "',
 					accessKey: '" .  $widget->s3Key . "',
@@ -46,7 +48,7 @@ use yii\web\View;
 					customHeaders: {'X-CSRF-Token':'" . \Yii::$app->request->getCsrfToken() . "'},
 					endpoint: '".$widget->uploadSuccessEndpoint."'
 				},
-				template: 'qq-simple-thumbnails-template',
+				template: '$templateId',
 				listElement: false,
 				autoUpload: true,
 			}).on('allComplete', function() {
@@ -92,7 +94,7 @@ use yii\web\View;
 <!-- Fine Uploader template
 	====================================================================== -->
 
-	<script type="text/template" id="qq-simple-thumbnails-template">
+	<script type="text/template" id="<?= $templateId ?>">
 		<div class="qq-uploader-selector qq-uploader">
 
 
