@@ -20,6 +20,11 @@ class CarouselBehavior extends \yii\base\Behavior {
 		if(isset($options['mediaTypes']))
 			$mediaTypes = $options['mediaTypes'];
 
+		$captionOptions = [];
+
+		if(isset($options['captionOptions']))
+			$captionOptions = $options['captionOptions'];
+
 		$defaultItems = [];
 
 		if(isset($options['defaultItems']))
@@ -68,7 +73,8 @@ class CarouselBehavior extends \yii\base\Behavior {
 			'carouselModel' => $carouselModel,
 			'carouselItemsModel' => $carouselModel->items,
 			'name' => 'carousel',
-			'mediaTypes' => $mediaTypes
+			'mediaTypes' => $mediaTypes,
+			'captionOptions' => $captionOptions
 			]);
 
 

@@ -48,7 +48,17 @@ if(!$isVideoUrlMedia):
     'id' => 'update-carousel-item-form'
     ]); ?>
     <hr>
-    <?= $form->field($carouselItemModel, 'Caption'); ?>
+    <?php 
+    if(!empty($fieldType) && $fieldType == 'wysiwyg') {
+        echo $form->field($carouselItemModel, 'Caption')->wysiwyg([
+        "buttons" => ['html', 'formatting', 'bold', 'italic', 'deleted', 'link'],
+        "formatting" => ['p', 'h5'],
+        "allowedTags" => ['p', 'h5', 'a', 'strong', 'del', 'em'],
+    ]);
+    } else {
+        echo $form->field($carouselItemModel, 'Caption');
+    }
+    ?>
 
     <div class="form-group">
         <?= Html::submitButton('Update', ['class' => 'btn btn-success']) ?>
@@ -76,14 +86,17 @@ if(!$isVideoUrlMedia):
             return false;
         }  
 
+
         $.ajax({
             url: form.attr('action'),
             type: 'POST',
             data: form.serialize(),
             dataType: 'json',
             success: function(data) {
-                if(data.Response == 'OK')
+                if(data.Response.Msg == 'OK') {
+                    $('#$widgetId-sortable .grid-item[data-item-id=\"$carouselItemModel->Id\"] .caption-text').text(data.Response.Caption);
                     $('#media-modal').modal('hide');
+                }
             }
         });
 

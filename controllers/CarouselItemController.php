@@ -15,6 +15,7 @@ use yii\helpers\Json;
 use matacms\widgets\ActiveForm;
 use yii\web\Response;
 use matacms\widgets\videourl\helpers\VideoUrlHelper;
+use mata\helpers\StringHelper;
 
 class CarouselItemController extends Controller 
 {
@@ -162,16 +163,17 @@ class CarouselItemController extends Controller
         }      
     }
 
-    public function actionAddMedia($carouselId, $widgetId, $image = false, $video = false) 
+    public function actionAddMedia($carouselId, $widgetId, $fieldType = false, $image = false, $video = false) 
     {        
         return $this->renderAjax('_create', [
             'carouselId' => $carouselId,
             'widgetId' => $widgetId,
             'mediaTypes' => ['image' => $image, 'video' => $video],
+            'fieldType' => $fieldType
             ]);
     }
 
-    public function actionUpdate($id, $widgetId = false) 
+    public function actionUpdate($id, $widgetId = false, $fieldType = false) 
     {
         $carouselItemModel = CarouselItem::find()->where(["Id" => $id])->one();
 
@@ -179,7 +181,7 @@ class CarouselItemController extends Controller
             Yii::$app->response->format = Response::FORMAT_JSON;
 
             if($carouselItemModel->load(Yii::$app->request->post()) && $carouselItemModel->save()) {
-                echo Json::encode(['Response'=>'OK']);
+                echo Json::encode(['Response'=>['Msg' => 'OK', 'Caption' => StringHelper::removeHtmlTags($carouselItemModel->Caption)]]);
             } else {
                 echo ActiveForm::validate($carouselItemModel);
             }
@@ -189,7 +191,8 @@ class CarouselItemController extends Controller
         return $this->renderAjax('_update', [
             'carouselItemModel' => $carouselItemModel,
             'widgetId' => $widgetId,
-            'mediaModel' => Media::find()->forItem($carouselItemModel)->one()
+            'mediaModel' => Media::find()->forItem($carouselItemModel)->one(),
+            'fieldType' => $fieldType
             ]);
     }
 

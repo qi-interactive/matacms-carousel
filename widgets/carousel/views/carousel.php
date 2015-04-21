@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use mata\widgets\sortable\Sortable;
 use yii\bootstrap\Modal;
 use mata\media\helpers\MediaHelper;
+use mata\helpers\StringHelper;
 
 \matacms\carousel\assets\CarouselAsset::register($this);
 
@@ -13,6 +14,13 @@ use mata\media\helpers\MediaHelper;
     <?php
 
     $widgetIdParam = '&widgetId='.$widgetId;
+
+
+    $captionOptionsParams = '';
+    if(!empty($captionOptions)) {
+        foreach($captionOptions as $key => $value)
+            $captionOptionsParams .= '&' . $key . '=' . $value;
+    }
     // Generate sortable items
     $items = [];
     if(!empty($carouselItemsModel)) {
@@ -24,9 +32,9 @@ use mata\media\helpers\MediaHelper;
                 <figure class="effect-winston"><div class="img-container">' .
                     MediaHelper::getPreview($media) . '</div>
                     <figcaption>
-                        <div class="caption-text"><span>'.$carouselItem->Caption.'</span><div class="fadding-container"> </div> </div>
+                        <div class="caption-text"><span>'.StringHelper::truncateToCharacter(StringHelper::removeHtmlTags($carouselItem->Caption), 50).'</span><div class="fadding-container"> </div> </div>
                         <p>
-                            <a href="#" class="edit-media" data-title="Edit Media" data-url="/mata-cms/carousel/carousel-item/update?id=' . $carouselItem->Id . $widgetIdParam . '" data-source="" data-toggle="modal" data-target="#media-modal">
+                            <a href="#" class="edit-media" data-title="Edit Media" data-url="/mata-cms/carousel/carousel-item/update?id=' . $carouselItem->Id . $widgetIdParam . $captionOptionsParams . '" data-source="" data-toggle="modal" data-target="#media-modal">
                                 <span></span></a>
                                 <a href="#" class="delete-media" data-url="/mata-cms/carousel/carousel-item/delete?id=' . $carouselItem->Id . '"><span class=""></span></a>
                             </p>
@@ -49,7 +57,7 @@ use mata\media\helpers\MediaHelper;
             }
         }
 
-        $items[] =['content' => '<a href="#" id="add-media" data-title="Add Media" data-url="/mata-cms/carousel/carousel-item/add-media?carouselId=' . $carouselModel->Id . $widgetIdParam . $mediaTypesParams . '" data-source="" data-toggle="modal" data-target="#media-modal"><div class="add-media-inner-wrapper"> <div class="hi-icon-effect-2">
+        $items[] =['content' => '<a href="#" id="add-media" data-title="Add Media" data-url="/mata-cms/carousel/carousel-item/add-media?carouselId=' . $carouselModel->Id . $widgetIdParam . $captionOptionsParams . $mediaTypesParams . '" data-source="" data-toggle="modal" data-target="#media-modal"><div class="add-media-inner-wrapper"> <div class="hi-icon-effect-2">
         <div class="hi-icon hi-icon-cog"></div>
     </div> <span> CLICK to upload files </span></div></a>', 'disabled' => true, 'options' => ['style' => 'cursor:text;', 'id' => 'add-media-container']]
     ?>

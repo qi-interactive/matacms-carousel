@@ -35,7 +35,7 @@ class CarouselItem extends \matacms\db\ActiveRecord
         return [
             [['CarouselId'], 'required'],
             [['CarouselId', 'Order'], 'integer'],
-            [['Caption'], 'string', 'max' => 128]
+            [['Caption'], 'string']
         ];
     }
 
