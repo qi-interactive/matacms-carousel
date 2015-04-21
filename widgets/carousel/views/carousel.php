@@ -10,9 +10,8 @@ use mata\helpers\StringHelper;
 
 ?>
 <div class="carousel-view">
-
+    
     <?php
-
     $widgetIdParam = '&widgetId='.$widgetId;
 
 
