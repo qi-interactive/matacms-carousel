@@ -33,7 +33,7 @@ use mata\helpers\StringHelper;
                     <figcaption>
                         <div class="caption-text"><span>'.StringHelper::truncateToCharacter(StringHelper::removeHtmlTags($carouselItem->Caption), 50).'</span><div class="fadding-container"> </div> </div>
                         <p>
-                            <a href="#" class="edit-media" data-title="Edit Media" data-url="/mata-cms/carousel/carousel-item/update?id=' . $carouselItem->Id . $widgetIdParam . $captionOptionsParams . '" data-source="" data-toggle="modal" data-target="#media-modal">
+                            <a href="#" class="edit-media" data-title="Edit Carousel Slide" data-url="/mata-cms/carousel/carousel-item/update?id=' . $carouselItem->Id . $widgetIdParam . $captionOptionsParams . '" data-source="" data-toggle="modal" data-target="#media-modal">
                                 <span></span></a>
                                 <a href="#" class="delete-media" data-url="/mata-cms/carousel/carousel-item/delete?id=' . $carouselItem->Id . '"><span class=""></span></a>
                             </p>
@@ -56,7 +56,7 @@ use mata\helpers\StringHelper;
             }
         }
 
-        $items[] =['content' => '<a href="#" id="add-media" data-title="Add Media" data-url="/mata-cms/carousel/carousel-item/add-media?carouselId=' . $carouselModel->Id . $widgetIdParam . $captionOptionsParams . $mediaTypesParams . '" data-source="" data-toggle="modal" data-target="#media-modal"><div class="add-media-inner-wrapper"> <div class="hi-icon-effect-2">
+        $items[] =['content' => '<a href="#" id="add-media" data-title="Add Carousel Slide" data-url="/mata-cms/carousel/carousel-item/add-media?carouselId=' . $carouselModel->Id . $widgetIdParam . $captionOptionsParams . $mediaTypesParams . '" data-source="" data-toggle="modal" data-target="#media-modal"><div class="add-media-inner-wrapper"> <div class="hi-icon-effect-2">
         <div class="hi-icon hi-icon-cog"></div>
     </div> <span> CLICK to upload files </span></div></a>', 'disabled' => true, 'options' => ['style' => 'cursor:text;', 'id' => 'add-media-container']]
     ?>
@@ -93,5 +93,25 @@ use mata\helpers\StringHelper;
     'id' => 'media-modal'
     ]);
     ?>
+    <div class="hi-icon-effect-2">
+        <div class="inner-container row">
+            <div class="five columns">
+                <div class="hi-icon hi-icon-cog"></div>
+            </div>
+            <div class="seven columns">
+                <span> UPLOAD IMAGE </span>
+            </div>
+        </div>
+    </div>
+    <div class="hi-icon-effect-2">
+     <div class="inner-container row">
+      <div class="five columns">
+        <div class="hi-icon hi-icon-cog"></div>
+    </div>
+    <div class="seven columns">
+        <span> ADD VIDEO URL </span>
+    </div>
+</div>
+</div>
 
-    <?php Modal::end(); ?>
+<?php Modal::end(); ?>
