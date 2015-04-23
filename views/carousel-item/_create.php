@@ -8,13 +8,38 @@ use matacms\widgets\videourl\models\VideoUrlForm;
 \matacms\carousel\assets\CarouselAsset::register($this);
 ?>
 
+
+
+
 <div>
     <div id="media-type-buttons">
         <?php if($mediaTypes['image']): ?>
-            <a href="#" id="add-image-button">Upload image</a>
+            <a href="#" id="add-image-button">
+            <div class="hi-icon-effect-2">
+                <div class="inner-container row">
+                    <div class="five columns">
+                        <div class="hi-icon hi-icon-cog"></div>
+                    </div>
+                    <div class="seven columns">
+                        <span> UPLOAD IMAGE </span>
+                    </div>
+                </div>
+            </div>
+            </a>
         <?php endif; ?>
         <?php if($mediaTypes['video']): ?>
-            <a href="#" id="add-video-url-button">Add video url</a>
+            <a href="#" id="add-video-url-button">
+            <div class="hi-icon-effect-2">
+                <div class="inner-container row">
+                    <div class="five columns">
+                        <div class="hi-icon hi-icon-cog"></div>
+                    </div>
+                    <div class="seven columns">
+                        <span> ADD VIDEO URL </span>
+                    </div>
+                </div>
+            </div>
+            </a>
         <?php endif; ?>
     </div>
     <?php if($mediaTypes['image']): ?>

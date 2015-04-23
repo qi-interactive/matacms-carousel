@@ -93,25 +93,6 @@ use mata\helpers\StringHelper;
     'id' => 'media-modal'
     ]);
     ?>
-    <div class="hi-icon-effect-2">
-        <div class="inner-container row">
-            <div class="five columns">
-                <div class="hi-icon hi-icon-cog"></div>
-            </div>
-            <div class="seven columns">
-                <span> UPLOAD IMAGE </span>
-            </div>
-        </div>
-    </div>
-    <div class="hi-icon-effect-2">
-     <div class="inner-container row">
-      <div class="five columns">
-        <div class="hi-icon hi-icon-cog"></div>
-    </div>
-    <div class="seven columns">
-        <span> ADD VIDEO URL </span>
-    </div>
-</div>
-</div>
+    
 
 <?php Modal::end(); ?>
