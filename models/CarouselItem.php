@@ -27,6 +27,12 @@ class CarouselItem extends \matacms\db\ActiveRecord
         return '{{%matacms_carouselitem}}';
     }
 
+    public function behaviors() {
+        return [
+        HistoryBehavior::className(),
+        ];
+    }
+
     /**
      * @inheritdoc
      */
