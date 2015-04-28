@@ -41,7 +41,7 @@ use yii\web\View;
 					}
 				},
 				multiple: " . ($widget->options['multiple'] ? 'true' : 'false') . ",
-			// Move to module settings
+				// Move to module settings
 				validation: {
 					allowedExtensions: ['jpg', 'jpeg', 'gif', 'png', 'pdf', 'ico'],
 					sizeLimit: 2000000
@@ -86,6 +86,20 @@ use yii\web\View;
 				if($('.qq-upload-spinner')[0].style.width == '100%')
 					$('.qq-upload-spinner').addClass('success');
 
+			}).on('submitted', function(event, id, name) {
+                var uploadImgIcon = $('" . $widget->selector . " .fine-uploader .upload-img .inner-container .five.columns').children()[0];
+
+                $(uploadImgIcon).removeClass('hi-icon').addClass('img-preview').prepend('<img />');
+
+                $('" . $widget->selector . " .fine-uploader').fineUploaderS3('drawThumbnail', id, $('img', uploadImgIcon)).then(function() {
+                	console.log('success');
+	            },
+	            function(img, error) {
+	                console.log(error);
+	            });
+
+				
+
 			}).on('submit', function() {
 				$('" . $widget->selector . " .current-media').remove();
 				$('" . $widget->selector . " .qq-upload-success').remove();
@@ -126,9 +140,16 @@ use yii\web\View;
 				<span>Drop files here to upload</span>
 			</div>
 			<div class="qq-upload-button-selector qq-upload-button">
-				<div class="add-media-inner-wrapper"> <div class="hi-icon-effect-2">
-					<div class="hi-icon hi-icon-cog"></div>
-				</div> <span> CLICK or DRAG & DROP </br> to upload a file</span>
+				<div class="hi-icon-effect-2 upload-img">
+	                <div class="inner-container row">
+	                    <div class="five columns">
+	                        <div class="hi-icon hi-icon-cog"></div>
+	                    </div>
+	                    <div class="seven columns">
+	                        <span> UPLOAD IMAGE </span>
+	                    </div>
+	                </div>
+	            </div>
 			</div>
 			<span class="qq-drop-processing-selector qq-drop-processing">
 				<span>Processing dropped files...</span>
@@ -136,7 +157,10 @@ use yii\web\View;
 			</span>
 			<ul class="qq-upload-list-selector qq-upload-list">
 				<span class="qq-upload-spinner-selector qq-upload-spinner"></span>
-				<li></li>
+				<li style="display:none;">
+					<img class="qq-thumbnail-selector" qq-server-scale>
+				</li>
+				
 			</ul>
 		</div>
 	</script>

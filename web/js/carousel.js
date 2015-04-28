@@ -26,11 +26,9 @@ $(window).ready(function() {
 
     $(document).on('click', '#media-modal #media-type-buttons a', function() {
     	var id = $(this).attr('id');
-    	$('#media-modal #media-type-buttons').hide();
-    	if(id == "add-image-button") {
-    		$('#media-modal #upload-image-container').show();
-    	}
-    	else {
+    	
+    	if(id == "add-video-url-button") {
+            $('#media-modal #media-type-buttons').hide();
     		$('#media-modal #add-video-url-container').show();
     	}
     	return false;
