@@ -15,6 +15,12 @@ class CarouselBehavior extends \yii\base\Behavior {
 
 	public function carousel($options = []) {
 
+		if(isset($this->owner->options['class'])) {
+		    $this->owner->options['class'] .= ' full-width';
+		} else {
+			$this->owner->options['class'] = ' full-width';
+		}
+
 		$mediaTypes = ['image', 'video'];
 
 		if(isset($options['mediaTypes']))
