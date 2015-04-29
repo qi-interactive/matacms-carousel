@@ -60,7 +60,8 @@ class CarouselSearch extends Carousel {
 
         $query->andFilterWhere(['like', 'Title', $this->Title])
             ->andFilterWhere(['like', 'Region', $this->Region])
-            >andWhere('IsDraft != 1');
+            ->andWhere('IsDraft != 1')
+            ->andWhere("Region not like 'matacms\\\\\\\\%'");
 
         return $dataProvider;
     }
