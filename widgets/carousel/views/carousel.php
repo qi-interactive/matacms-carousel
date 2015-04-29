@@ -10,6 +10,8 @@ use mata\helpers\StringHelper;
 
 ?>
 <div class="carousel-view">
+
+
     
     <?php
     $widgetIdParam = '&widgetId='.$widgetId;
@@ -44,21 +46,35 @@ use mata\helpers\StringHelper;
             }
         }
 
-
-
-    // <a href="#" class="delete-media" data-url="/mata-cms/carousel/carousel-item/delete?id=' . $carouselItem->Id . '"><span class="glyphicon glyphicon-remove"></span></a>
-    // <div class="grid-item" data-item-id="'.$carouselItem->Id.'"><div class="grid-item-centerer"></div>' . MediaHelper::getPreview($media) . '</div>'
-
+        $isImageOnly = true;        
         $mediaTypesParams = '';
         if(!empty($mediaTypes)) {
             foreach($mediaTypes as $mediaType) {
                 $mediaTypesParams .= '&' . $mediaType . '=true';
+                if($mediaType != 'image')
+                    $isImageOnly = false;
             }
         }
 
-        $items[] =['content' => '<a href="#" id="add-media" data-title="Add Carousel Slide" data-url="/mata-cms/carousel/carousel-item/add-media?carouselId=' . $carouselModel->Id . $widgetIdParam . $captionOptionsParams . $mediaTypesParams . '" data-source="" data-toggle="modal" data-target="#media-modal"><div class="add-media-inner-wrapper"> <div class="hi-icon-effect-2">
+        if($isImageOnly) {
+            $items[] = ['content' => mata\widgets\fineuploader\FineUploader::widget([
+                'name' => 'CarouselItemMedia',
+                'id' => 'fineuploader-carousel-'.$carouselModel->Id,
+                'uploadSuccessEndpoint' => '/mata-cms/carousel/carousel-item/upload-successful?carouselId='.$carouselModel->Id,
+                'view' => '@matacms/carousel/views/carousel/_fineuploader',
+                'events' => [
+                'complete' => "$('<li role=\"option\" aria-grabbed=\"false\" draggable=\"true\"><div class=\"grid-item\" data-item-id=\"' + uploadSuccessResponse.Id + '\"><figure class=\"effect-winston\"><div class=\"img-container\"><img src=\"' + uploadSuccessResponse.URI + '\" draggable=\"false\"></div><figcaption><div class=\"caption-text\"><span> </span><div class=\"fadding-container\"> </div> </div><p><a href=\"#\" class=\"edit-media\" data-title=\"Edit Media\" data-url=\"/mata-cms/carousel/carousel-item/update?id='+uploadSuccessResponse.Id+'\&widgetId=".$widgetId."&fieldType=image\" data-source=\"\" data-toggle=\"modal\" data-target=\"#media-modal\"><span></span></a><a href=\"#\" class=\"delete-media\" data-url=\"/mata-cms/carousel/carousel-item/delete?id='+uploadSuccessResponse.Id+'\"><span></span></a><div class=\"grid-item\" data-item-id=\"'+uploadSuccessResponse.Id+'\"><div class=\"grid-item-centerer\"></div><img src=\"' + uploadSuccessResponse.URI + '\" draggable=\"false\"></div></p></figcaption></figure></div></li>').insertBefore('#$widgetId-sortable li#add-media-container');
+                $('#$widgetId-sortable').matasortable('reload');
+                $('#media-modal').modal('hide');"
+                ]
+                ]), 'disabled' => true, 'options' => ['style' => 'cursor:text;', 'id' => 'add-media-container']];
+        } else {
+            $items[] =['content' => '<a href="#" id="add-media" data-title="Add Carousel Slide" data-url="/mata-cms/carousel/carousel-item/add-media?carouselId=' . $carouselModel->Id . $widgetIdParam . $captionOptionsParams . $mediaTypesParams . '" data-source="" data-toggle="modal" data-target="#media-modal"><div class="add-media-inner-wrapper"> <div class="hi-icon-effect-2">
         <div class="hi-icon hi-icon-cog"></div>
-    </div> <span> CLICK to upload files </span></div></a>', 'disabled' => true, 'options' => ['style' => 'cursor:text;', 'id' => 'add-media-container']]
+    </div> <span> CLICK to upload files </span></div></a>', 'disabled' => true, 'options' => ['style' => 'cursor:text;', 'id' => 'add-media-container']];
+        }
+
+        
     ?>
 
     <?= Sortable::widget([
