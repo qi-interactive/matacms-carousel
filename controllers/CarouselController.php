@@ -22,6 +22,11 @@ class CarouselController extends Controller
         return new CarouselSearch();
     }
 
+    public function actionUpdate($id) {
+        $model = $this->findModel($id);
+        return $this->actionManage($model->Region);
+    }
+
 	/**
      * Lists all CarouselItem models.
      * @return mixed
