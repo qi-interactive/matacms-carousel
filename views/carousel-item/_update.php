@@ -10,20 +10,22 @@ use matacms\widgets\videourl\models\VideoUrlForm;
 <?php 
 $isVideoUrlMedia = in_array($mediaModel->MimeType, ['video/youtube', 'video/vimeo']);
 if(!$isVideoUrlMedia): 
-?>
-<?= mata\widgets\fineuploader\FineUploader::widget([
-    'name' => 'CarouselItemMedia',
-    'uploadSuccessEndpoint' => '/mata-cms/carousel/carousel-item/upload-successful?carouselId='.$carouselItemModel->CarouselId.'&carouselItemId='.$carouselItemModel->Id,
-    'view' => '/carousel/_fineuploader',
-    'model' => $carouselItemModel,
-    'events' => [
+    ?>
+<div id="edit-image-container-modal">
+    <?= mata\widgets\fineuploader\FineUploader::widget([
+        'name' => 'CarouselItemMedia',
+        'uploadSuccessEndpoint' => '/mata-cms/carousel/carousel-item/upload-successful?carouselId='.$carouselItemModel->CarouselId.'&carouselItemId='.$carouselItemModel->Id,
+        'view' => '/carousel/_fineuploaderForUpdate',
+        'model' => $carouselItemModel,
+        'events' => [
         'complete' => "$('.grid-item[data-item-id=\"' + uploadSuccessResponse.Id + '\"] img').attr('src', uploadSuccessResponse.URI);"
-    ],
-    'options' => [
+        ],
+        'options' => [
         'multiple' => false
-    ]
-    ]);
-?>
+        ]
+        ]);
+        ?>
+    </div>
 <?php else: ?>
     <?php 
     $formModel = new VideoUrlForm;
@@ -35,7 +37,7 @@ if(!$isVideoUrlMedia):
         'formModel' => $formModel,
         'onComplete' => "$('.grid-item[data-item-id=\"' + data.Id + '\"] img').attr('src', data.Extra.thumbnailUrl);",
         'options' => [
-            'showSubmitButton' => false
+        'showSubmitButton' => false
         ]
         ]);
     echo $videoUrlWidget;
@@ -47,60 +49,59 @@ if(!$isVideoUrlMedia):
     'enableClientValidation' => true,
     'id' => 'update-carousel-item-form'
     ]); ?>
-    <hr>
-    <?php 
-    if(!empty($fieldType) && $fieldType == 'wysiwyg') {
-        echo $form->field($carouselItemModel, 'Caption')->wysiwyg([
+<?php 
+if(!empty($fieldType) && $fieldType == 'wysiwyg') {
+    echo $form->field($carouselItemModel, 'Caption')->wysiwyg([
         "buttons" => ['html', 'formatting', 'bold', 'italic', 'deleted', 'link'],
         "formatting" => ['p', 'h5'],
         "allowedTags" => ['p', 'h5', 'a', 'strong', 'del', 'em'],
-    ]);
-    } else {
-        echo $form->field($carouselItemModel, 'Caption');
-    }
-    ?>
+        ]);
+} else {
+    echo $form->field($carouselItemModel, 'Caption');
+}
+?>
 
-    <div class="form-group">
-        <?= Html::submitButton('Update', ['class' => 'btn btn-success']) ?>
-    </div>
+<div class="form-group submit-btn-container">
+    <?= Html::submitButton('Update', ['class' => 'btn btn-success']) ?>
+</div>
 
-    <?php ActiveForm::end(); ?>
-    
-    <?php
+<?php ActiveForm::end(); ?>
 
-    $onBeforeSubmit = "";
-    if($isVideoUrlMedia) {
-        $onBeforeSubmit = "var videoUrlForm = $('#media-modal .video-url form');
-        videoUrlForm.trigger('submit');
-        if(videoUrlForm.find('.has-error').length) {
-            return false;
-        }";
-    }
+<?php
 
-    $this->registerJs("
-       $('#" . $form->id . "').on('beforeSubmit', function(event, jqXHR, settings) {
-        " . $onBeforeSubmit . "
-        
-        var form = $(this);
-        if(form.find('.has-error').length) {
-            return false;
-        }  
+$onBeforeSubmit = "";
+if($isVideoUrlMedia) {
+    $onBeforeSubmit = "var videoUrlForm = $('#media-modal .video-url form');
+    videoUrlForm.trigger('submit');
+    if(videoUrlForm.find('.has-error').length) {
+        return false;
+    }";
+}
+
+$this->registerJs("
+   $('#" . $form->id . "').on('beforeSubmit', function(event, jqXHR, settings) {
+    " . $onBeforeSubmit . "
+
+    var form = $(this);
+    if(form.find('.has-error').length) {
+        return false;
+    }  
 
 
-        $.ajax({
-            url: form.attr('action'),
-            type: 'POST',
-            data: form.serialize(),
-            dataType: 'json',
-            success: function(data) {
-                if(data.Response.Msg == 'OK') {
-                    $('#$widgetId-sortable .grid-item[data-item-id=\"$carouselItemModel->Id\"] .caption-text').text(data.Response.Caption);
-                    $('#media-modal').modal('hide');
-                }
+    $.ajax({
+        url: form.attr('action'),
+        type: 'POST',
+        data: form.serialize(),
+        dataType: 'json',
+        success: function(data) {
+            if(data.Response.Msg == 'OK') {
+                $('#$widgetId-sortable .grid-item[data-item-id=\"$carouselItemModel->Id\"] .caption-text').text(data.Response.Caption);
+                $('#media-modal').modal('hide');
             }
-        });
+        }
+    });
 
-    return false;
+return false;
 });", View::POS_READY);
 
 ?>
