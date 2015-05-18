@@ -1,8 +1,9 @@
 <?php
+ 
 /**
- * @author: Harry Tang (giaduy@gmail.com)
- * @link: http://www.greyneuron.com
- * @copyright: Grey Neuron
+ * @link http://www.matacms.com/
+ * @copyright Copyright (c) 2015 Qi Interactive Limited
+ * @license http://www.matacms.com/license/
  */
 
 namespace matacms\carousel\widgets\carousel;
@@ -34,9 +35,6 @@ class Carousel extends InputWidget {
 
     }
 
-    /**
-     * @inheritdoc
-     */
     public function run()
     {
         $this->selector = '#' . $this->htmlOptions['id'];

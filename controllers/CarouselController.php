@@ -1,4 +1,10 @@
 <?php
+ 
+/**
+ * @link http://www.matacms.com/
+ * @copyright Copyright (c) 2015 Qi Interactive Limited
+ * @license http://www.matacms.com/license/
+ */
 
 namespace matacms\carousel\controllers;
 
@@ -31,6 +37,7 @@ class CarouselController extends Controller
      * Lists all CarouselItem models.
      * @return mixed
      */
+    
     public function actionManage($region) 
     {
     	$carouselClient = new CarouselClient;

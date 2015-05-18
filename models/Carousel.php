@@ -1,4 +1,10 @@
 <?php
+ 
+/**
+ * @link http://www.matacms.com/
+ * @copyright Copyright (c) 2015 Qi Interactive Limited
+ * @license http://www.matacms.com/license/
+ */
 
 namespace matacms\carousel\models;
 
@@ -14,6 +20,7 @@ use mata\arhistory\behaviors\HistoryBehavior;
  * @property string $Title
  * @property string $Region
  */
+
 class Carousel extends \matacms\db\ActiveRecord
 {
 
@@ -21,9 +28,6 @@ class Carousel extends \matacms\db\ActiveRecord
         return new CarouselQuery(get_called_class());
     }
 
-    /**
-     * @inheritdoc
-     */
     public static function tableName()
     {
         return '{{%matacms_carousel}}';
@@ -36,9 +40,6 @@ class Carousel extends \matacms\db\ActiveRecord
         ];
     }
 
-    /**
-     * @inheritdoc
-     */
     public function rules()
     {
         return [
@@ -48,9 +49,6 @@ class Carousel extends \matacms\db\ActiveRecord
         ];
     }
 
-    /**
-     * @inheritdoc
-     */
     public function attributeLabels()
     {
         return [
@@ -60,9 +58,6 @@ class Carousel extends \matacms\db\ActiveRecord
         ];
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getItems() {
         return $this->hasMany(CarouselItem::className(), ['CarouselId' => 'Id'])->orderBy('Order ASC');
     }
@@ -86,5 +81,3 @@ class CarouselQuery extends ActiveQuery {
     }
 
 }
-
-

@@ -1,4 +1,10 @@
 <?php
+ 
+/**
+ * @link http://www.matacms.com/
+ * @copyright Copyright (c) 2015 Qi Interactive Limited
+ * @license http://www.matacms.com/license/
+ */
 
 namespace matacms\carousel\models;
 
@@ -10,10 +16,9 @@ use matacms\carousel\models\Carousel;
 /**
  * CarouselSearch represents the model behind the search form about `matacms\carousel\models\Carousel`.
  */
+
 class CarouselSearch extends Carousel {
-    /**
-     * @inheritdoc
-     */
+
     public function rules()
     {
         return [
@@ -22,9 +27,6 @@ class CarouselSearch extends Carousel {
         ];
     }
 
-    /**
-     * @inheritdoc
-     */
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -65,4 +67,5 @@ class CarouselSearch extends Carousel {
 
         return $dataProvider;
     }
+    
 }

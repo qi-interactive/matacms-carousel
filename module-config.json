@@ -2,5 +2,5 @@
     "name": "Carousel",
     "description": "Carousel management for MATA CMS",
     "icon" : "/images/module-icon.svg",
-    "version" : 1.0
+    "version" : "1.0.0-alpha"
 }
