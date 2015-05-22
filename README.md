@@ -38,6 +38,10 @@ Returns Carousel for a given region.
 Changelog
 ---------
 
+## TBD
+
+- Shown Add Crousel button to dev mode only
+
 ## 1.0.1-alpha, May 22, 2015
 
 - Bug fixes.
