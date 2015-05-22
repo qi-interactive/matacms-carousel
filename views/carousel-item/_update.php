@@ -95,7 +95,7 @@ $this->registerJs("
         dataType: 'json',
         success: function(data) {
             if(data.Response.Msg == 'OK') {
-                $('#$widgetId-sortable .grid-item[data-item-id=\"$carouselItemModel->Id\"] .caption-text').text(data.Response.Caption);
+                $('#$widgetId-sortable .grid-item[data-item-id=\"$carouselItemModel->Id\"] .caption-text').html('<span>' + data.Response.Caption + '</span><div class=\"fadding-container\"></div>');
                 $('#media-modal').modal('hide');
             }
         }

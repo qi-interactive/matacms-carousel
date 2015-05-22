@@ -22,6 +22,7 @@ use mata\helpers\StringHelper;
         foreach($captionOptions as $key => $value)
             $captionOptionsParams .= '&' . $key . '=' . $value;
     }
+
     // Generate sortable items
     $items = [];
     if(!empty($carouselItemsModel)) {
@@ -63,7 +64,7 @@ use mata\helpers\StringHelper;
                 'uploadSuccessEndpoint' => '/mata-cms/carousel/carousel-item/upload-successful?carouselId='.$carouselModel->Id,
                 'view' => '@matacms/carousel/views/carousel/_fineuploader',
                 'events' => [
-                'complete' => "$('<li role=\"option\" aria-grabbed=\"false\" draggable=\"true\"><div class=\"grid-item\" data-item-id=\"' + uploadSuccessResponse.Id + '\"><figure class=\"effect-winston\"><div class=\"img-container\"><img src=\"' + uploadSuccessResponse.URI + '\" draggable=\"false\"></div><figcaption><div class=\"caption-text\"><span> </span><div class=\"fadding-container\"> </div> </div><p><a href=\"#\" class=\"edit-media\" data-title=\"Edit Media\" data-url=\"/mata-cms/carousel/carousel-item/update?id='+uploadSuccessResponse.Id+'\&widgetId=".$widgetId."&fieldType=image\" data-source=\"\" data-toggle=\"modal\" data-target=\"#media-modal\"><span></span></a><a href=\"#\" class=\"delete-media\" data-url=\"/mata-cms/carousel/carousel-item/delete?id='+uploadSuccessResponse.Id+'\"><span></span></a><div class=\"grid-item\" data-item-id=\"'+uploadSuccessResponse.Id+'\"><div class=\"grid-item-centerer\"></div><img src=\"' + uploadSuccessResponse.URI + '\" draggable=\"false\"></div></p></figcaption></figure></div></li>').insertBefore('#$widgetId-sortable li#add-media-container');
+                'complete' => "$('<li role=\"option\" aria-grabbed=\"false\" draggable=\"true\"><div class=\"grid-item\" data-item-id=\"' + uploadSuccessResponse.Id + '\"><figure class=\"effect-winston\"><div class=\"img-container\"><img src=\"' + uploadSuccessResponse.URI + '\" draggable=\"false\"></div><figcaption><div class=\"caption-text\"><span> </span><div class=\"fadding-container\"> </div> </div><p><a href=\"#\" class=\"edit-media\" data-title=\"Edit Media\" data-url=\"/mata-cms/carousel/carousel-item/update?id='+uploadSuccessResponse.Id+'" . $widgetIdParam . $captionOptionsParams . "\" data-source=\"\" data-toggle=\"modal\" data-target=\"#media-modal\"><span></span></a><a href=\"#\" class=\"delete-media\" data-url=\"/mata-cms/carousel/carousel-item/delete?id='+uploadSuccessResponse.Id+'\"><span></span></a><div class=\"grid-item\" data-item-id=\"'+uploadSuccessResponse.Id+'\"><div class=\"grid-item-centerer\"></div><img src=\"' + uploadSuccessResponse.URI + '\" draggable=\"false\"></div></p></figcaption></figure></div></li>').insertBefore('#$widgetId-sortable li#add-media-container');
                 $('#$widgetId-sortable').matasortable('reload');
                 $('#media-modal').modal('hide');"
                 ]

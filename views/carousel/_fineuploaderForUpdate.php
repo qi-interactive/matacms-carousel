@@ -78,13 +78,13 @@ autoUpload: true,
 	" . $widget->events['complete'] . "
 	$('.qq-upload-spinner').css('opacity', 0);
 }).on('progress', function(event, id, fileName, loaded, total) {
-	$('.qq-upload-spinner').css({
+	$('" . $widget->selector . " .qq-upload-spinner').css({
 		'opacity': 1, 
 		width : ((loaded/total)*100) + '%'
 	});
 
-if($('.qq-upload-spinner')[0].style.width == '100%')
-	$('.qq-upload-spinner').addClass('success');
+if($('" . $widget->selector . " .qq-upload-spinner')[0].style.width == '100%')
+	$('" . $widget->selector . " .qq-upload-spinner').addClass('success');
 
 }).on('submit', function() {
 	$('" . $widget->selector . " .current-media').remove();
