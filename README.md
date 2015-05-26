@@ -38,8 +38,9 @@ Returns Carousel for a given region.
 Changelog
 ---------
 
-## TBD
+## 1.0.2-alpha, May 26, 2015
 
+- Updated header for managing carousel items
 - Shown Add Crousel button to dev mode only
 
 ## 1.0.1-alpha, May 22, 2015
