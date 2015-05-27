@@ -30,6 +30,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
 </div>
 
+<?= $this->render('@vendor/matacms/matacms-base/views/module/_overlay'); ?>
+
 <script>
 
 	parent.mata.simpleTheme.header

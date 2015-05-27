@@ -38,6 +38,10 @@ Returns Carousel for a given region.
 Changelog
 ---------
 
+## TBD
+
+- Added missing overlay for revisions in carousel manager
+
 ## 1.0.3-alpha, May 27, 2015
 
 - Bug fix
