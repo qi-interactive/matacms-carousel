@@ -42,6 +42,7 @@ Changelog
 
 - Removed versions 
 - Removed delete button from Production (!YII_DEBUG)
+- Added missing overlay for revisions in carousel manager
 
 ## 1.0.3-alpha, May 27, 2015
 

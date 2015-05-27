@@ -82,9 +82,12 @@ $module = \Yii::$app->getModule("environment");
 				</div>
 			</div>
 		</a>
+<<<<<<< HEAD
 
 		<?php if (YII_DEBUG): ?>
 
+=======
+>>>>>>> ce59539f46be708e4471ced62f47a5d0998e4a82
 		<a class='delete-btn' href="<?= sprintf("%s/delete?id=%d", $moduleBaseUrl, $model->primaryKey );?>" <?php if(method_exists($model, 'canBeDeleted')) {
 				echo "data-delete-allowed=\"" . var_export($model->canBeDeleted(), true) . "\"";
 				if(!$model->canBeDeleted()) {
@@ -92,8 +95,11 @@ $module = \Yii::$app->getModule("environment");
 				}
 			}
 			?>></a>
+<<<<<<< HEAD
 
 		<?php endif; ?>
+=======
+>>>>>>> ce59539f46be708e4471ced62f47a5d0998e4a82
 	</div>
 
 
