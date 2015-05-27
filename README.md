@@ -38,6 +38,10 @@ Returns Carousel for a given region.
 Changelog
 ---------
 
+## 1.0.3-alpha, May 27, 2015
+
+- Bug fix
+
 ## 1.0.2-alpha, May 26, 2015
 
 - Updated header for managing carousel items
