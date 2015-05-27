@@ -30,21 +30,12 @@ $this->params['breadcrumbs'][] = $this->title;
 
 </div>
 
-<<<<<<< HEAD
-=======
 <?= $this->render('@vendor/matacms/matacms-base/views/module/_overlay'); ?>
-
->>>>>>> ce59539f46be708e4471ced62f47a5d0998e4a82
 <script>
 
 	parent.mata.simpleTheme.header
 	.setBackToListViewURL("<?= sprintf("/mata-cms/%s/%s", $this->context->module->id, $this->context->id) ?>")
 	.showBackToListView()
-<<<<<<< HEAD
-=======
-	.setVersionsURL('<?= sprintf("/mata-cms/%s/%s/history?documentId=%s&returnURI=%s", $this->context->module->id, $this->context->id, urlencode($carouselModel->getDocumentId()->getId()), Yii::$app->request->url) ?>')
-	.showVersions()
->>>>>>> ce59539f46be708e4471ced62f47a5d0998e4a82
 	.show();
 
 </script>
