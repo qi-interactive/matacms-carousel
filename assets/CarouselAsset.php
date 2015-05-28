@@ -10,11 +10,16 @@ namespace matacms\carousel\assets;
 
 use yii\web\AssetBundle;
 
-class ModuleAsset extends AssetBundle
+class CarouselAsset extends AssetBundle
 {
 	public $sourcePath = '@vendor/matacms/matacms-carousel/web';
 
+	public $css = [
+        'css/carousel.css'
+    ];
+
 	public $js = [
+		'js/carousel.js'
 	];
 
 	public $depends = [

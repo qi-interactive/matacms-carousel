@@ -11,19 +11,20 @@ namespace matacms\carousel\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use matacms\carousel\models\Carousel;
+use matacms\carousel\models\CarouselItem;
 
 /**
- * CarouselSearch represents the model behind the search form about `matacms\carousel\models\Carousel`.
+ * CarouselItemSearch represents the model behind the search form about `matacms\carousel\models\CarouselItem`.
  */
 
-class CarouselSearch extends Carousel {
+class CarouselItemSearch extends Carousel {
 
     public function rules()
     {
         return [
-            [['Id'], 'integer'],
-            [['Title', 'Region'], 'safe'],
+            [['CarouselId'], 'required'],
+            [['CarouselId', 'Order'], 'integer'],
+            [['Caption'], 'string', 'max' => 128]
         ];
     }
 
@@ -42,7 +43,7 @@ class CarouselSearch extends Carousel {
      */
     public function search($params)
     {
-        $query = Carousel::find();
+        $query = CarouselItem::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -60,12 +61,9 @@ class CarouselSearch extends Carousel {
             'Id' => $this->Id,
         ]);
 
-        $query->andFilterWhere(['like', 'Title', $this->Title])
-            ->andFilterWhere(['like', 'Region', $this->Region])
-            ->andWhere('IsDraft != 1')
-            ->andWhere("Region not like 'matacms\\\\\\\\%'");
+        $query->andFilterWhere(['like', 'Caption', $this->Caption]);
 
         return $dataProvider;
     }
-    
+
 }

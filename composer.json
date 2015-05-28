@@ -6,10 +6,13 @@
     "license": "MIT",
     "support": {
     },
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "autoload": {
         "psr-4": {
             "matacms\\carousel\\": ""
         }
+    },
+    "extra": {
+        "bootstrap": "matacms\\carousel\\Bootstrap"
     }
 }
