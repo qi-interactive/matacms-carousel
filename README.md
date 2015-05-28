@@ -38,7 +38,7 @@ Returns Carousel for a given region.
 Changelog
 ---------
 
-## TBD
+## 1.0.4-alpha, May 28, 2015
 
 - Removed versions 
 - Removed delete button from Production (!YII_DEBUG)
