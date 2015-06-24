@@ -38,6 +38,10 @@ Returns Carousel for a given region.
 Changelog
 ---------
 
+## 1.0.5-alpha, June 24, 2015
+
+- Fixed predefined carousel item creation with Media
+
 ## 1.0.4-alpha, May 28, 2015
 
 - Removed versions 
