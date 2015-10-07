@@ -9,7 +9,7 @@
     "minimum-stability": "stable",
     "autoload": {
         "psr-4": {
-            "matacms\\carousel\\": ""
+            "matacms\\carousel\\": ["../../../mata-cms/modules/matacms/matacms-carousel", ""]
         }
     },
     "extra": {
