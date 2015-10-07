@@ -10,7 +10,7 @@ Carousel module allows manage carousels with photo and video items.
 Installation
 ------------
 
-- Add the module using composer: 
+- Add the module using composer:
 
 ```json
 "matacms/matacms-carousel": "~1.0.0"
@@ -25,9 +25,9 @@ php yii migrate/up --migrationPath=@vendor/matacms/matacms-carousel/migrations
 Client
 ------
 
-Carousel Client extends [`matacms\clients`](https://github.com/qi-interactive/matacms-base/blob/master/clients/SimpleClient.php). 
+Carousel Client extends [`matacms\clients`](https://github.com/qi-interactive/matacms-base/blob/master/clients/SimpleClient.php).
 
-In addition, it exposes the following methods: 
+In addition, it exposes the following methods:
 
 ```php
 public function findByRegion($region) {}
@@ -38,13 +38,17 @@ Returns Carousel for a given region.
 Changelog
 ---------
 
+## 1.0.5.1-alpha, October 7, 2015
+
+- Updated psr-4
+
 ## 1.0.5-alpha, June 24, 2015
 
 - Fixed predefined carousel item creation with Media
 
 ## 1.0.4-alpha, May 28, 2015
 
-- Removed versions 
+- Removed versions
 - Removed delete button from Production (!YII_DEBUG)
 - Added missing overlay for revisions in carousel manager
 
