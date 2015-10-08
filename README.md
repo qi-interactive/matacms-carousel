@@ -40,7 +40,7 @@ Changelog
 
 ## 1.0.5.3-alpha, October 8, 2015
 
-- Migration fix
+- Migration fixed
 
 ## 1.0.5.2-alpha, October 8, 2015
 
