@@ -1,5 +1,5 @@
 <?php
- 
+
 /**
  * @link http://www.matacms.com/
  * @copyright Copyright (c) 2015 Qi Interactive Limited
@@ -11,7 +11,6 @@ namespace matacms\carousel\models;
 use Yii;
 use matacms\carousel\models\CarouselItem;
 use yii\db\ActiveQuery;
-use mata\arhistory\behaviors\HistoryBehavior;
 
 /**
  * This is the model class for table "matacms_carousel".
@@ -36,7 +35,12 @@ class Carousel extends \matacms\db\ActiveRecord
     public function behaviors()
     {
         return [
-            HistoryBehavior::className()
+            [
+                'class' => \mata\arhistory\behaviors\HistoryBehavior::className()
+            ],
+            [
+                'class' => \matacms\language\behaviors\LanguageBehavior::className()
+            ]
         ];
     }
 
@@ -45,7 +49,7 @@ class Carousel extends \matacms\db\ActiveRecord
         return [
             [['Title', 'Region'], 'required'],
             [['Title', 'Region'], 'string', 'max' => 128],
-            [['Id', 'IsDraft'], 'safe']
+            [['Id', 'IsDraft', 'Language'], 'safe']
         ];
     }
 
