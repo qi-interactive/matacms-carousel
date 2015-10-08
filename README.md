@@ -38,6 +38,10 @@ Returns Carousel for a given region.
 Changelog
 ---------
 
+## 1.0.5.2-alpha, October 8, 2015
+
+- Added matacms-language 
+
 ## 1.0.5.1-alpha, October 7, 2015
 
 - Updated psr-4
