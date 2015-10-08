@@ -9,7 +9,7 @@
 use yii\db\Schema;
 use yii\db\Migration;
 
-class m151008_1124215_add_language_column extends Migration {
+class m151008_112415_add_language_column extends Migration {
 
 	public function safeUp() {
 		$this->addColumn('{{%matacms_carousel}}', 'Language', 'varchar(16) NULL');
