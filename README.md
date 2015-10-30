@@ -38,6 +38,10 @@ Returns Carousel for a given region.
 Changelog
 ---------
 
+## 1.0.5.4-alpha, October 30, 2015
+
+- Fixed matacms\carousel\widgets\carousel\CarouselAsset
+
 ## 1.0.5.3-alpha, October 8, 2015
 
 - Migration fixed
