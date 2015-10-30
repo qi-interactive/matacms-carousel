@@ -12,14 +12,14 @@ use matacms\widgets\videourl\models\VideoUrlForm;
     <div id="media-type-buttons">
         <?php if($mediaTypes['image']): ?>
             <div id="upload-image-container-modal">
-            <?php 
+            <?php
             $fieldType = !empty($fieldType) ? $fieldType = '&fieldType='.$fieldType : '';
             ?>
             <?= mata\widgets\fineuploader\FineUploader::widget([
                 'name' => 'CarouselItemMedia',
                 'id' => 'fineuploader-carousel-'.$carouselId,
                 'uploadSuccessEndpoint' => '/mata-cms/carousel/carousel-item/upload-successful?carouselId='.$carouselId,
-                'view' => '@matacms/carousel/views/carousel/_fineuploaderForModal',
+                'view' => '@vendor/matacms/matacms-carousel/views/carousel/_fineuploaderForModal',
                 'events' => [
                     'complete' => "$('<li role=\"option\" aria-grabbed=\"false\" draggable=\"true\"><div class=\"grid-item\" data-item-id=\"' + uploadSuccessResponse.Id + '\"><figure class=\"effect-winston\"><div class=\"img-container\"><img src=\"' + uploadSuccessResponse.URI + '\" draggable=\"false\"></div><figcaption><div class=\"caption-text\"><span> </span><div class=\"fadding-container\"> </div> </div><p><a href=\"#\" class=\"edit-media\" data-title=\"Edit Media\" data-url=\"/mata-cms/carousel/carousel-item/update?id='+uploadSuccessResponse.Id+'\&widgetId=".$widgetId.$fieldType."\" data-source=\"\" data-toggle=\"modal\" data-target=\"#media-modal\"><span></span></a><a href=\"#\" class=\"delete-media\" data-url=\"/mata-cms/carousel/carousel-item/delete?id='+uploadSuccessResponse.Id+'\"><span></span></a><div class=\"grid-item\" data-item-id=\"'+uploadSuccessResponse.Id+'\"><div class=\"grid-item-centerer\"></div><img src=\"' + uploadSuccessResponse.URI + '\" draggable=\"false\"></div></p></figcaption></figure></div></li>').insertBefore('#$widgetId-sortable li#add-media-container');
                     $('#$widgetId-sortable').matasortable('reload');
