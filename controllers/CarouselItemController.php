@@ -1,5 +1,5 @@
 <?php
- 
+
 /**
  * @link http://www.matacms.com/
  * @copyright Copyright (c) 2015 Qi Interactive Limited
@@ -23,7 +23,7 @@ use yii\web\Response;
 use matacms\widgets\videourl\helpers\VideoUrlHelper;
 use mata\helpers\StringHelper;
 
-class CarouselItemController extends Controller 
+class CarouselItemController extends Controller
 {
 
     public function actions()
@@ -37,12 +37,12 @@ class CarouselItemController extends Controller
         ];
     }
 
-    public function getModel() 
+    public function getModel()
     {
         return new CarouselIiem();
     }
 
-    public function getSearchModel() 
+    public function getSearchModel()
     {
         return new CarouselItemSearch();
     }
@@ -51,8 +51,8 @@ class CarouselItemController extends Controller
      * Create CarouselItem and create media entity for newly created CarouselItem document
      * @return [type] [description]
      */
-    
-    public function actionUploadSuccessful() 
+
+    public function actionUploadSuccessful()
     {
         $carouselId = \Yii::$app->getRequest()->get("carouselId");
         $carouselItemId = \Yii::$app->getRequest()->get("carouselItemId");
@@ -63,14 +63,14 @@ class CarouselItemController extends Controller
             $carouselItemModel->CarouselId = $carouselId;
             if ($carouselItemModel->save() == false)
                 throw new \yii\web\HttpException(500, $carouselItemModel->getTopError());
-        }        
+        }
 
         $s3Endpoint = KeyValue::findValue(FineUploader::S3_ENDPOINT);
         $s3Bucket = KeyValue::findValue(FineUploader::S3_BUCKET);
 
         $imageURL = $s3Endpoint . "/" . $s3Bucket  . "/" . urlencode(\Yii::$app->getRequest()->post("key"));
 
-        $mediaWidth = 0; 
+        $mediaWidth = 0;
         $mediaHeight = 0;
         $mimeType = "default";
 
@@ -118,7 +118,7 @@ class CarouselItemController extends Controller
         echo Json::encode($mediaModel);
     }
 
-    public function actionProcessVideoUrl() 
+    public function actionProcessVideoUrl()
     {
         $carouselId = \Yii::$app->getRequest()->get("carouselId");
         $carouselItemId = \Yii::$app->getRequest()->get("carouselItemId");
@@ -137,7 +137,7 @@ class CarouselItemController extends Controller
                 $mediaModel = new Media() ;
                 $mediaModel->attributes = array(
                     "Name" => $videoUrlForm->videoUrl,
-                    "DocumentId" => $carouselItemModel->getDocumentId()->getId(),
+                    "For" => $carouselItemModel->getDocumentId()->getId(),
                     "URI" => $videoUrlForm->videoUrl,
                     "Width" => 0,
                     "Height" => 0,
@@ -166,11 +166,11 @@ class CarouselItemController extends Controller
         } else {
             Yii::$app->response->format = Response::FORMAT_JSON;
             echo ActiveForm::validate($videoUrlForm);
-        }      
+        }
     }
 
-    public function actionAddMedia($carouselId, $widgetId, $fieldType = false, $image = false, $video = false) 
-    {        
+    public function actionAddMedia($carouselId, $widgetId, $fieldType = false, $image = false, $video = false)
+    {
         return $this->renderAjax('_create', [
             'carouselId' => $carouselId,
             'widgetId' => $widgetId,
@@ -179,7 +179,7 @@ class CarouselItemController extends Controller
             ]);
     }
 
-    public function actionUpdate($id, $widgetId = false, $fieldType = false) 
+    public function actionUpdate($id, $widgetId = false, $fieldType = false)
     {
         $carouselItemModel = CarouselItem::find()->where(["Id" => $id])->one();
 
@@ -193,7 +193,7 @@ class CarouselItemController extends Controller
             }
             Yii::$app->end();
         }
-        
+
         return $this->renderAjax('_update', [
             'carouselItemModel' => $carouselItemModel,
             'widgetId' => $widgetId,
@@ -202,7 +202,7 @@ class CarouselItemController extends Controller
             ]);
     }
 
-    public function actionDelete($id) 
+    public function actionDelete($id)
     {
         $carouselItemModel = CarouselItem::find()->where(["Id" => $id])->one();
 
@@ -219,7 +219,7 @@ class CarouselItemController extends Controller
         Yii::$app->end();
     }
 
-    protected function identifyVideoServiceProvider($value) 
+    protected function identifyVideoServiceProvider($value)
     {
         $url = preg_replace('#\#.*$#', '', trim($value));
         $services_regexp = [
