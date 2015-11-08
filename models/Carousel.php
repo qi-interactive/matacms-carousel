@@ -71,7 +71,7 @@ class Carousel extends \matacms\db\ActiveRecord
         $item = $this->getItems()->one();
 
         if ($item != null)
-            return $item->getMedia()->URI;
+            return \yii\helpers\StringHelper::startsWith($item->getMedia()->MimeType, 'video/') ? json_decode($item->getMedia()->Extra)->thumbnailUrl : $item->getMedia()->URI;
     }
 
 }
