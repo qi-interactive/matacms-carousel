@@ -1,5 +1,5 @@
 <?php
- 
+
 /**
  * @link http://www.matacms.com/
  * @copyright Copyright (c) 2015 Qi Interactive Limited
@@ -16,6 +16,7 @@ use matacms\helpers\Html;
 use yii\helpers\ArrayHelper;
 use mata\media\models\Media;
 use matacms\widgets\videourl\helpers\VideoUrlHelper;
+use yii\helpers\StringHelper;
 
 class CarouselBehavior extends \yii\base\Behavior {
 
@@ -64,12 +65,13 @@ class CarouselBehavior extends \yii\base\Behavior {
 		$carouselModel = $carouselClient->findByRegion($documentId);
 
 		if(!$carouselModel) {
+            $title = ($this->owner->model->isNewRecord) ? $documentId : $this->owner->model->getLabel();
 			$carouselModel = new Carousel;
-			$carouselModel->Title = ($this->owner->model->isNewRecord) ? $documentId : $this->owner->model->getLabel();
+			$carouselModel->Title = StringHelper::byteSubstr($title, 0, 128);
 			$carouselModel->Region = $documentId;
 			if($this->owner->model->isNewRecord)
 				$carouselModel->IsDraft = 1;
-			
+
 			if ($carouselModel->save() == false)
 				throw new \yii\web\HttpException(500, $carouselModel->getTopError());
 
@@ -109,7 +111,7 @@ class CarouselBehavior extends \yii\base\Behavior {
 			$imageURL = $item['URI'];
 			$fileName = basename($imageURL);
 
-			$mediaWidth = 0; 
+			$mediaWidth = 0;
 	        $mediaHeight = 0;
 	        $mimeType = "default";
 
@@ -154,10 +156,10 @@ class CarouselBehavior extends \yii\base\Behavior {
             );
             if ($mediaModel->save() == false)
                 throw new \yii\web\HttpException(500, $mediaModel->getTopError());
-		}		
+		}
 	}
 
-	protected function identifyVideoServiceProvider($value) 
+	protected function identifyVideoServiceProvider($value)
     {
         $url = preg_replace('#\#.*$#', '', trim($value));
         $services_regexp = [
