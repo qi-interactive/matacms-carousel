@@ -1,5 +1,5 @@
 <?php
- 
+
 /**
  * @link http://www.matacms.com/
  * @copyright Copyright (c) 2015 Qi Interactive Limited
@@ -11,16 +11,17 @@ namespace matacms\carousel;
 use Yii;
 use matacms\carousel\behaviors\CarouselBehavior;
 use yii\base\Event;
+use yii\helpers\StringHelper;
 use matacms\widgets\ActiveField;
 use mata\base\MessageEvent;
 use matacms\carousel\clients\CarouselClient;
 //TODO Dependency on matacms
 use matacms\controllers\module\Controller;
 
-class Bootstrap extends \mata\base\Bootstrap 
+class Bootstrap extends \mata\base\Bootstrap
 {
 
-	public function bootstrap($app) 
+	public function bootstrap($app)
 	{
 		Event::on(ActiveField::className(), ActiveField::EVENT_INIT_DONE, function(MessageEvent $event) {
 			$event->getMessage()->attachBehavior('carousel', new CarouselBehavior());
@@ -35,14 +36,14 @@ class Bootstrap extends \mata\base\Bootstrap
 		});
 	}
 
-	private function updateRegions($model) 
+	private function updateRegions($model)
 	{
 		$tmpRegions = \Yii::$app->request->post('CarouselRegions');
 		if(!empty($tmpRegions)) {
 			foreach ($tmpRegions as $tmpRegion) {
 				$this->updateRegion($model, $tmpRegion);
 			}
-		}				
+		}
 	}
 
 	private function updateRegion($model, $tmpRegion)
@@ -56,7 +57,7 @@ class Bootstrap extends \mata\base\Bootstrap
 		$carouselModel = $carouselClient->findByRegion($tmpRegion);
 
 		if($tmpRegion && !empty($carouselModel) && $carouselModel->getLabel()) {
-			$carouselModel->Title = $model->getLabel();
+			$carouselModel->Title = StringHelper::byteSubstr($model->getLabel(), 0, 128);    
 			$carouselModel->Region = $model->getDocumentId($attribute)->getId();
 			$carouselModel->IsDraft = 0;
 			if ($carouselModel->save() == false)
@@ -64,7 +65,7 @@ class Bootstrap extends \mata\base\Bootstrap
 		}
 	}
 
-	private function canRun($app) 
+	private function canRun($app)
 	{
 		return is_a($app, "yii\console\Application") == false;
 	}
