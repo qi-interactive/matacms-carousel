@@ -37,11 +37,7 @@ class Carousel extends \matacms\db\ActiveRecord
         return [
             [
                 'class' => \mata\arhistory\behaviors\HistoryBehavior::className()
-            ],
-            [
-                'class' => \matacms\language\behaviors\LanguageBehavior::className()
             ]
-        ];
     }
 
     public function rules()
