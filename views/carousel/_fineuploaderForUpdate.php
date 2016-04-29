@@ -7,7 +7,7 @@ use yii\web\View;
 <div id="<?= $widget->id ?>" class="file-uploader">
 
 
-	<?php 
+	<?php
 
 	$templateId = 'qq-simple-thumbnails-template-'.$widget->id;
 
@@ -31,7 +31,7 @@ use yii\web\View;
 							data: {name: filename},
 							success: function(data) {
 								var result = '" . $widget->s3Folder . "/' + data.key;
-								keyRetrieval.success(result); 
+								keyRetrieval.success(result);
 							},
 							error: function() { keyRetrieval.failure(); },
 							dataType: 'json'
@@ -52,7 +52,7 @@ signature: {
 },
 showMessage: function(message) {
 	if (message != 'No files to upload.') {
-		alert(message); 
+		alert(message);
 	} else {
 		if(uploadsPending == 0)
 			form.submit();
@@ -68,18 +68,19 @@ autoUpload: true,
 }).on('allComplete', function() {
 			// setTimeout(function() {
 			// 	if(uploadsPending == 0)
-			// 		form.submit(); 
-			// 	// form.submit();	
+			// 		form.submit();
+			// 	// form.submit();
 			// }, 800)
 }).on('complete', function(a, id, name, uploadSuccessResponse, t, c) {
 	if (uploadSuccessResponse.Id == null) {
 		alert('Media Upload failed. Please get in touch with your support team.');
 	}
 	" . $widget->events['complete'] . "
+	$('" . $widget->selector . " .current-media').attr('src', uploadSuccessResponse.URI);
 	$('.qq-upload-spinner').css('opacity', 0);
 }).on('progress', function(event, id, fileName, loaded, total) {
 	$('" . $widget->selector . " .qq-upload-spinner').css({
-		'opacity': 1, 
+		'opacity': 1,
 		width : ((loaded/total)*100) + '%'
 	});
 
@@ -87,7 +88,6 @@ if($('" . $widget->selector . " .qq-upload-spinner')[0].style.width == '100%')
 	$('" . $widget->selector . " .qq-upload-spinner').addClass('success');
 
 }).on('submit', function() {
-	$('" . $widget->selector . " .current-media').remove();
 	$('" . $widget->selector . " .qq-upload-success').remove();
 });
 
@@ -125,11 +125,11 @@ if($('" . $widget->selector . " .qq-upload-spinner')[0].style.width == '100%')
 				<span>Drop files here to upload</span>
 			</div>
 			<div class="qq-upload-button-selector qq-upload-button">
-				<div class="add-media-inner-wrapper"> 
+				<div class="add-media-inner-wrapper">
 					<div class="hi-icon-effect-2">
 						<div class="hi-icon hi-icon-cog">
 						</div>
-					</div> 
+					</div>
 					<span> CLICK or DRAG & DROP </br> to upload a file</span>
 				</div>
 				<span class="qq-drop-processing-selector qq-drop-processing">

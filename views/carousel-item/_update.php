@@ -7,9 +7,9 @@ use matacms\widgets\videourl\models\VideoUrlForm;
 
 ?>
 
-<?php 
+<?php
 $isVideoUrlMedia = in_array($mediaModel->MimeType, ['video/youtube', 'video/vimeo']);
-if(!$isVideoUrlMedia): 
+if(!$isVideoUrlMedia):
     ?>
 <div id="edit-image-container-modal">
     <?= mata\widgets\fineuploader\FineUploader::widget([
@@ -18,7 +18,7 @@ if(!$isVideoUrlMedia):
         'view' => '/carousel/_fineuploaderForUpdate',
         'model' => $carouselItemModel,
         'events' => [
-        'complete' => "$('.grid-item[data-item-id=\"' + uploadSuccessResponse.Id + '\"] img').attr('src', uploadSuccessResponse.URI);"
+        'complete' => "$('.grid-item[data-item-id=\"' + uploadSuccessResponse.Id + '\"] figure.effect-winston').css({'background-image': 'url(' + uploadSuccessResponse.URI + ')'});",
         ],
         'options' => [
         'multiple' => false
@@ -27,7 +27,7 @@ if(!$isVideoUrlMedia):
         ?>
     </div>
 <?php else: ?>
-    <?php 
+    <?php
     $formModel = new VideoUrlForm;
     $formModel->videoUrl = $mediaModel->URI;
     ?>
@@ -35,7 +35,7 @@ if(!$isVideoUrlMedia):
         'name' => 'CarouselItemMediaVideoUrl',
         'endpoint' => '/mata-cms/carousel/carousel-item/process-video-url?carouselId='.$carouselItemModel->CarouselId.'&carouselItemId='.$carouselItemModel->Id,
         'formModel' => $formModel,
-        'onComplete' => "$('.grid-item[data-item-id=\"' + data.Id + '\"] img').attr('src', data.Extra.thumbnailUrl);",
+        'onComplete' => "$('.grid-item[data-item-id=\"' + data.Id + '\"] figure.effect-winston').css({'background-image': 'url(' + data.Extra.thumbnailUrl + ')'});",
         'options' => [
         'showSubmitButton' => false
         ]
@@ -49,7 +49,7 @@ if(!$isVideoUrlMedia):
     'enableClientValidation' => true,
     'id' => 'update-carousel-item-form'
     ]); ?>
-<?php 
+<?php
 if(!empty($fieldType) && $fieldType == 'wysiwyg') {
     echo $form->field($carouselItemModel, 'Caption')->wysiwyg([
         "buttons" => ['html', 'formatting', 'bold', 'italic', 'deleted', 'link'],
@@ -85,7 +85,7 @@ $this->registerJs("
     var form = $(this);
     if(form.find('.has-error').length) {
         return false;
-    }  
+    }
 
 
     $.ajax({
