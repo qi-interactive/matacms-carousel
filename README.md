@@ -38,6 +38,10 @@ Returns Carousel for a given region.
 Changelog
 ---------
 
+## 1.0.6.0-alpha, April 29, 2016
+
+- Improvements
+
 ## 1.0.5.9-alpha, April 26, 2016
 
 - Removed \matacms\language\behaviors\LanguageBehavior from Carousel and CarouselItem models

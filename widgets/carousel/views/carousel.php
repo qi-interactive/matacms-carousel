@@ -5,6 +5,7 @@ use mata\widgets\sortable\Sortable;
 use yii\bootstrap\Modal;
 use mata\media\helpers\MediaHelper;
 use mata\helpers\StringHelper;
+use yii\helpers\Json;
 
 \matacms\carousel\assets\CarouselAsset::register($this);
 
@@ -12,7 +13,7 @@ use mata\helpers\StringHelper;
 <div class="carousel-view">
 
 
-    
+
     <?php
     $widgetIdParam = '&widgetId='.$widgetId;
 
@@ -28,11 +29,11 @@ use mata\helpers\StringHelper;
     if(!empty($carouselItemsModel)) {
         foreach($carouselItemsModel as $carouselItem) {
             $media = $carouselItem->getMedia();
-            // $type = MediaHelper::getType($media->MimeType);
+            $type = MediaHelper::getType($media->MimeType);
+            $mediaURI = $type == 'video' ? Json::decode($media->Extra, false)->thumbnailUrl : $media->URI;
             $items[] = ['content' => '
             <div class="grid-item" data-item-id="'.$carouselItem->Id.'">
-                <figure class="effect-winston"><div class="img-container">' .
-                    MediaHelper::getPreview($media) . '</div>
+                <figure class="effect-winston" style="background-image:url(' . $mediaURI . ')">
                     <figcaption>
                         <div class="caption-text"><span>'.StringHelper::truncateToCharacter(StringHelper::removeHtmlTags($carouselItem->Caption), 50).'</span><div class="fadding-container"> </div> </div>
                         <p>
@@ -40,14 +41,14 @@ use mata\helpers\StringHelper;
                                 <span></span></a>
                                 <a href="#" class="delete-media" data-url="/mata-cms/carousel/carousel-item/delete?id=' . $carouselItem->Id . '"><span class=""></span></a>
                             </p>
-                        </figcaption>           
+                        </figcaption>
                     </figure>
                 </div>
                 '];
             }
         }
 
-        $isImageOnly = true;        
+        $isImageOnly = true;
         $mediaTypesParams = '';
         if(!empty($mediaTypes)) {
             foreach($mediaTypes as $mediaType) {
@@ -64,7 +65,7 @@ use mata\helpers\StringHelper;
                 'uploadSuccessEndpoint' => '/mata-cms/carousel/carousel-item/upload-successful?carouselId='.$carouselModel->Id,
                 'view' => '@matacms/carousel/views/carousel/_fineuploader',
                 'events' => [
-                'complete' => "$('<li role=\"option\" aria-grabbed=\"false\" draggable=\"true\"><div class=\"grid-item\" data-item-id=\"' + uploadSuccessResponse.Id + '\"><figure class=\"effect-winston\"><div class=\"img-container\"><img src=\"' + uploadSuccessResponse.URI + '\" draggable=\"false\"></div><figcaption><div class=\"caption-text\"><span> </span><div class=\"fadding-container\"> </div> </div><p><a href=\"#\" class=\"edit-media\" data-title=\"Edit Media\" data-url=\"/mata-cms/carousel/carousel-item/update?id='+uploadSuccessResponse.Id+'" . $widgetIdParam . $captionOptionsParams . "\" data-source=\"\" data-toggle=\"modal\" data-target=\"#media-modal\"><span></span></a><a href=\"#\" class=\"delete-media\" data-url=\"/mata-cms/carousel/carousel-item/delete?id='+uploadSuccessResponse.Id+'\"><span></span></a><div class=\"grid-item\" data-item-id=\"'+uploadSuccessResponse.Id+'\"><div class=\"grid-item-centerer\"></div><img src=\"' + uploadSuccessResponse.URI + '\" draggable=\"false\"></div></p></figcaption></figure></div></li>').insertBefore('#$widgetId-sortable li#add-media-container');
+                'complete' => "$('<li role=\"option\" aria-grabbed=\"false\" draggable=\"true\"><div class=\"grid-item\" data-item-id=\"' + uploadSuccessResponse.Id + '\"><figure class=\"effect-winston\" style=\"background-image:url(' + uploadSuccessResponse.URI + ');\"><figcaption><div class=\"caption-text\"><span> </span><div class=\"fadding-container\"> </div> </div><p><a href=\"#\" class=\"edit-media\" data-title=\"Edit Media\" data-url=\"/mata-cms/carousel/carousel-item/update?id='+uploadSuccessResponse.Id+'" . $widgetIdParam . $captionOptionsParams . "\" data-source=\"\" data-toggle=\"modal\" data-target=\"#media-modal\"><span></span></a><a href=\"#\" class=\"delete-media\" data-url=\"/mata-cms/carousel/carousel-item/delete?id='+uploadSuccessResponse.Id+'\"><span></span></a></p></figcaption></figure></div></li>').insertBefore('#$widgetId-sortable li#add-media-container');
                 $('#$widgetId-sortable').matasortable('reload');
                 $('#media-modal').modal('hide');"
                 ]
@@ -75,7 +76,7 @@ use mata\helpers\StringHelper;
     </div> <span> CLICK to upload files </span></div></a>', 'disabled' => true, 'options' => ['style' => 'cursor:text;', 'id' => 'add-media-container']];
         }
 
-        
+
     ?>
 
     <?= Sortable::widget([
@@ -83,26 +84,25 @@ use mata\helpers\StringHelper;
         'id' => $widgetId.'-sortable',
         'items' => $items,
         'pluginEvents' => [
-        'sort-update' => 'function(e, ui) { 
-            var items = ui.startparent.children().children(".grid-item");
-            var carouselItemsIds = $.map(items, function(i) {
-                return $(i).data("item-id");
-            });
-    $.ajax({
-        type: "POST",
-        url: "/mata-cms/carousel/carousel-item/rearrange",
-        data: {"ids":carouselItemsIds},
-        dataType: "json",
-        success: function(data) {
-            console.log("success");
-        },
-        error: function() {
-            console.log("error");
-        }
-    });
-}',
-]
-]); ?>
+            'sort-update' => 'function(e, ui) {
+                var items = ui.startparent.children().children(".grid-item");
+                var carouselItemsIds = $.map(items, function(i) {
+                    return $(i).data("item-id");
+                });
+                $.ajax({
+                    type: "POST",
+                    url: "/mata-cms/carousel/carousel-item/rearrange",
+                    data: {"ids":carouselItemsIds},
+                    success: function(data) {
+                        console.log("success");
+                    },
+                    error: function() {
+                        console.log("error");
+                    }
+                });
+            }',
+        ]
+    ]); ?>
 </div>
 
 <?php Modal::begin([
@@ -110,6 +110,6 @@ use mata\helpers\StringHelper;
     'id' => 'media-modal'
     ]);
     ?>
-    
+
 
 <?php Modal::end(); ?>
