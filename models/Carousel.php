@@ -71,6 +71,10 @@ class Carousel extends \matacms\db\ActiveRecord
             return \yii\helpers\StringHelper::startsWith($item->getMedia()->MimeType, 'video/') ? json_decode($item->getMedia()->Extra)->thumbnailUrl : $item->getMedia()->URI;
     }
 
+    public function filterableAttributes() {
+        return ["Title"];
+    }
+
 }
 
 class CarouselQuery extends ActiveQuery {
