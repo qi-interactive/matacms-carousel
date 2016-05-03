@@ -38,6 +38,10 @@ Returns Carousel for a given region.
 Changelog
 ---------
 
+## 1.0.6.2-alpha, May 3, 2016
+
+- Added filterableAttributes() to Carousel model (for search functionality)
+
 ## 1.0.6.1-alpha, May 2, 2016
 
 - Improvements
