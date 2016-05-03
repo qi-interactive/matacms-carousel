@@ -38,6 +38,10 @@ Returns Carousel for a given region.
 Changelog
 ---------
 
+## 1.0.6.1-alpha, May 2, 2016
+
+- Improvements
+
 ## 1.0.6.0-alpha, April 29, 2016
 
 - Improvements

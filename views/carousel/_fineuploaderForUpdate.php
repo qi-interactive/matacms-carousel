@@ -120,7 +120,10 @@ if($('" . $widget->selector . " .qq-upload-spinner')[0].style.width == '100%')
 
 	<script type="text/template" id="<?= $templateId ?>">
 		<div class="qq-uploader-selector qq-uploader">
-
+			<ul class="qq-upload-list-selector qq-upload-list">
+				<span class="qq-upload-spinner-selector qq-upload-spinner"></span>
+				<li></li>
+			</ul>
 			<div class="qq-upload-drop-area-selector qq-upload-drop-area" qq-hide-dropzone>
 				<span>Drop files here to upload</span>
 			</div>
@@ -136,9 +139,6 @@ if($('" . $widget->selector . " .qq-upload-spinner')[0].style.width == '100%')
 					<span>Processing dropped files...</span>
 					<span class="qq-drop-processing-spinner-selector qq-drop-processing-spinner"></span>
 				</span>
-				<ul class="qq-upload-list-selector qq-upload-list">
-					<span class="qq-upload-spinner-selector qq-upload-spinner"></span>
-					<li></li>
-				</ul>
+
 			</div>
 		</script>
