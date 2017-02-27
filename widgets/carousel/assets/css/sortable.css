@@ -4,7 +4,6 @@
   border-radius: 4px;
 }
 .carousel-view .sortable li {
-  border: 1px solid #ddd;
   list-style: none outside none;
   margin: 4px;
   cursor: normal;
